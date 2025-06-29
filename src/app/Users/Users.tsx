@@ -1,9 +1,18 @@
+
 import { View, Text, Pressable, Alert, TextInput, Modal, FlatList,StyleSheet } from 'react-native';
 import { useEffect, useState } from 'react';
 import tw from 'twrnc';
-import { store, TABLE_NAME, initializeStore, clearTable } from "../../storge/store";
+import { store, TABLE_NAME, initializeStore, clearTable } from "../../storge/Users";
 
 export function Users() {
+
+
+  interface users{
+    name: string
+    email: string
+    phone: string
+  }
+
   const [users, setUsers] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [uploadModalVisible, setUploadModalVisible] = useState(false);
@@ -32,7 +41,7 @@ export function Users() {
     }
   };
   //Função que sobe os dados para o banco (É chamada em um loop mais abaixo)
-  const UpdateItems = async ({ id, name, email, phone, game }) => {
+  const UpdateItems = async ({ id:string, name:string, email:string, phone:string, game:string }) => {
     try {
       const data = { id, name, email, phone, game };
       const response = await fetch("https://nasago.bubbleapps.io/version-test/api/1.1/wf/form_totem", {

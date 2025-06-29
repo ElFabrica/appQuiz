@@ -6,6 +6,7 @@ import { Home } from "@/app/Home/Home";
 import { Questions } from "@/app/Questions/Questions";
 import { Score } from "@/app/Score/Score";
 import { Users } from "@/app/Users/Users";
+import { Admin } from "@/app/Admin/Admin";
 
 export type StackRoutesList ={
     Home: undefined
@@ -13,6 +14,7 @@ export type StackRoutesList ={
     Questions: undefined
     Score: {score: number}
     Users: undefined
+    Admin: undefined
 
 
 }
@@ -23,12 +25,13 @@ const Stack = createNativeStackNavigator<StackRoutesList>()
 
 export function StacksRoutes() {
     return(
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator initialRouteName="Admin">
             <Stack.Screen name="Home" component={Home}/>
             <Stack.Screen name="Form" component={Form}/>  
             <Stack.Screen name="Questions" component={Questions}/>  
             <Stack.Screen name="Score" component={Score}/>  
             <Stack.Screen name="Users" component={Users}/>  
+            <Stack.Screen name="Admin" component={Admin}/>  
 
 
 

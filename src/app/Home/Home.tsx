@@ -28,10 +28,10 @@ function acessoRestrito() {
   return (
   <View style={styles.container}>
     {/* Logo */}
-    <Image
+    {/*<Image
       source={require('../img/LOGO_AZUL.png')}
       style={styles.logo}
-    />
+    />*/}
 
     {/* Ícone */}
     <Pressable onPress={() => setModalVisible(true)}>

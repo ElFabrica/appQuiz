@@ -13,7 +13,7 @@ Keyboard } from "react-native";
 import validator from 'email-validator';
 import { styles } from "./styles";
 import LottieView from 'lottie-react-native';
-import { store, TABLE_NAME, initializeStore } from "../../storge/store"; // ✅ import externo
+import { store, TABLE_NAME, initializeStore } from "../../storge/Users"; // ✅ import externo
 import MaskInput from 'react-native-mask-input'
 import { StackRoutesProps } from "@/routes/StackRoutes";
 
@@ -89,7 +89,7 @@ export  function Form({ navigation }: StackRoutesProps<"Form">) {
       >
         <View style={styles.animationContainer}>
           <LottieView
-            source={require('../animations/Form.json')}
+            source={require('../../assets/animations/Form.json')}
             autoPlay
             loop
             style={styles.animation}

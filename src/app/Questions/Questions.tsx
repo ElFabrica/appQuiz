@@ -17,7 +17,7 @@ export function  Questions ({ navigation }: StackRoutesProps<"Questions">) {
   const [modalVisible, setModalVisible] = useState(false);
 
   interface tasks{
-    option: 
+
   }
 
 

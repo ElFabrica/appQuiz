@@ -38,12 +38,12 @@ export function Score({ navigation, route }: StackRoutesProps<"Score">) {
   
   return (
   <View style={styles.container}>
-    <Image
+    {/*<Image
       source={require('../img/LOGO_AZUL.png')}
       style={styles.logo}
-    />
+    />*/}
     <LottieView
-      source={require('../animations/Finish2.json')}
+      source={require('../../assets/animations/Finish2.json')}
       autoPlay
       loop
       style={styles.animation}

@@ -2,13 +2,15 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ITEMS_STORGE_KEY = "@appQuiz:perguntas"
 
-export type choice = {
+export type choiceStorge = {
     id: string,
     title: string
     task: string
+    choiceRight: boolean
+    order:number
 }
 //Faz uma busca de todos os itens dessa tabela
-async function getChoice(): Promise<choice[]> {
+async function get(): Promise<choiceStorge[]> {
     try {
         const storge = await AsyncStorage.getItem(ITEMS_STORGE_KEY)
 
@@ -20,7 +22,7 @@ async function getChoice(): Promise<choice[]> {
 }
 //Faz um filtro de todos os itens com base num parâmetro
 //Salva os itens dentro do banco de dados do dispositivo
-async function saveChoice(items: choice[]): Promise<void> {
+async function save(items: choiceStorge[]): Promise<void> {
     try {
         await AsyncStorage.setItem(ITEMS_STORGE_KEY, JSON.stringify(items))
     } catch (error) {
@@ -28,22 +30,22 @@ async function saveChoice(items: choice[]): Promise<void> {
     }
 }
 //Adiciona um item no banco de dados do dispositivo
-async function addChoice(newItem: choice): Promise<choice[]> {
-    const items = await getChoice()
+async function add(newItem: choiceStorge): Promise<choiceStorge[]> {
+    const items = await get()
     const updatedItems = [...items, newItem]
-    await saveChoice(updatedItems)
+    await save(updatedItems)
 
     return updatedItems 
 
 }
 //Remove um item do banco de dadods do dispositivo
-async function removeChoice(id: string): Promise<void> {
-    const items = await getChoice()
+async function remove(id: string): Promise<void> {
+    const items = await get()
     const updatedItems = items.filter((item) => item.id !== id)
-    saveChoice(updatedItems)
+    save(updatedItems)
 }
 //Limpa os itens do banco de dados do dispositivo
-async function clearChoice(): Promise<void> {
+async function clear(): Promise<void> {
     try {
         await AsyncStorage.removeItem(ITEMS_STORGE_KEY)
     } catch (error) {
@@ -54,10 +56,10 @@ async function clearChoice(): Promise<void> {
 
 
 
-export const itemsStorge = {
-    getChoice,
-    saveChoice,
-    addChoice,
-    removeChoice,
-    clearChoice
+export const ChoiceStorge = {
+    get,
+    save,
+    add,
+    remove,
+    clear
 }
