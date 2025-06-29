@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import AppNavigator from './src/navegation/appNavegator';
+import AppNavigator from './src/routes/appNavegator';
 
 export default function App( {navigation} ) {
 

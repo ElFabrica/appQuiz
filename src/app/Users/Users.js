@@ -1,9 +1,9 @@
 import { View, Text, Pressable, Alert, TextInput, Modal, FlatList,StyleSheet } from 'react-native';
 import { useEffect, useState } from 'react';
 import tw from 'twrnc';
-import { store, TABLE_NAME, initializeStore, clearTable } from "../config/store";
+import { store, TABLE_NAME, initializeStore, clearTable } from "../../storge/store";
 
-export default function Users() {
+export function Users() {
   const [users, setUsers] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [uploadModalVisible, setUploadModalVisible] = useState(false);
