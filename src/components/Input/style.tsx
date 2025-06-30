@@ -9,12 +9,12 @@ export const styles = StyleSheet.create({
         color:"#333333",
         fontSize: RFValue(16),
         fontWeight: 600,
-        borderWidth: 1,
-        borderRadius: 20,
-        borderColor:"#D88200",
-        padding: 10,
+        borderWidth: 2,
+        borderRadius: 8,
+        borderColor:"#3B82F6",
+        padding: 16,
         width: "100%",
-        minHeight: 65,
+        minHeight: "auto",
 
     },
     inputFocused: {

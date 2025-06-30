@@ -13,9 +13,7 @@ export function Input({place, ...rest}: Props) {
     return(
             <View style={styles.wrapper}>
         <TextInput style={[
-            styles.input,
-            isFocused && 
-            styles.inputFocused
+            styles.input
             ]}
         placeholder={place} 
         onFocus={() => setIsFocused(true)}

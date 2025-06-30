@@ -1,28 +1,30 @@
 import { useState, useEffect } from "react";
-import { View, Text, Pressable, Image, Modal } from "react-native";
+import { View, Text, Pressable, Image, Modal, Alert } from "react-native";
 import React from "react";
 import { reactQuestions } from "../../tasks/question";
 import tw from "twrnc";
 import * as Progress from 'react-native-progress';
 
+import { TaskStorge,taskStorge } from "@/storge/Tasks";
+import { ChoiceStorge, choiceStorge } from "@/storge/Choices";
+
 import { StackRoutesProps } from "@/routes/StackRoutes";
 import { styles } from "./styles";
 
 export function  Questions ({ navigation }: StackRoutesProps<"Questions">) {
-  const [shuffledQuestions, setShuffledQuestions] = useState([]); // Estado que guarda as perguntas embaralhadas
+
+
+  const [shuffledTasks, setShuffledTasks] = useState<taskStorge[]>([]); // Estado que guarda as perguntas embaralhadas
+  const [shuffledChoices, setshuffledChoices] = useState<choiceStorge[]>([])
+
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
-  const [selectedOption, setSelectedOption] = useState(false);
-  const [isCorrect, setIsCorrect] = useState(null);
+  const [selectedOption, setSelectedOption] = useState<choiceStorge>();
+  const [isCorrect, setIsCorrect] = useState<Boolean>();
   const [modalVisible, setModalVisible] = useState(false);
 
-  interface tasks{
-
-  }
-
-
   // 🔀 Função para embaralhar array (Fisher-Yates Shuffle)
-  const shuffleArray = (array) => {
+  function shuffleArray (array:taskStorge[]){
     const shuffled = [...array];
     for (let i = shuffled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -33,38 +35,62 @@ export function  Questions ({ navigation }: StackRoutesProps<"Questions">) {
 
   // 🚀 Embaralhar perguntas na primeira renderização
   useEffect(() => {
-    const randomizedQuestions = shuffleArray(reactQuestions);
-    setShuffledQuestions(randomizedQuestions);
+    handleTasks()
+    handleChoices()
+
+    const randomizedQuestions = shuffleArray(shuffledTasks);
+    setShuffledTasks(randomizedQuestions);
   }, []);
 
   //Função que vai pra próxima pergunta
   const handleNext = () => {
-    if (currentQuestionIndex === shuffledQuestions.length - 1) {
+    if (currentQuestionIndex === shuffledTasks.length - 1) {
       navigation.navigate("Score", { score: score }); //Se for a ultima pergunta, redireciona para a página de Score e manda como parâmetro a pontuação do usuário
     } else {
       if (!selectedOption) { //Verifica se o usuário já selecionou alguma alternativa
         return;
       }
       setCurrentQuestionIndex(currentQuestionIndex + 1); //Vai para a próxima pergunta
-      setSelectedOption(null); //Reseta a variável salva a opção selecionada
-      setIsCorrect(null); //Reseta a função que verifica se está correta
+      setSelectedOption(undefined); //Reseta a variável salva a opção selecionada
+      setIsCorrect(undefined); //Reseta a função que verifica se está correta
     }
   };
 
   //Função de clicar na opção e recebe a opção como parâmetro
-  const handleOptionPress = (pressedOption) => {
+  const handleOptionPress = (pressedOption:choiceStorge) => {
     if (selectedOption) { //Verifica se já foi clicado
       return;
     }
     setSelectedOption(pressedOption); //Salva a opção selecionada
     const isAnwserCorrect =
-      shuffledQuestions[currentQuestionIndex].correctAnswer === pressedOption;
-    setIsCorrect(isAnwserCorrect);
+      shuffledTasks[currentQuestionIndex].choiceRight === pressedOption.id;
+    setIsCorrect(true);
 
     if (isAnwserCorrect) { //Se a opção for correta, ele adiciona mais 20 pontos
       setScore((prevScore) => prevScore + 20);
     }
   };
+
+  async function handleTasks() {
+      try {
+        const response = await TaskStorge.get()
+        setShuffledTasks(response)
+      } catch (error) {
+        console.log(error)
+        Alert.alert("Error", "Não foi possível puxar as perguntas.")
+  
+      }
+    }
+    async function handleChoices() {
+      try {
+        const response = await ChoiceStorge.get()
+        setshuffledChoices(response)
+      } catch (error) {
+        console.log(error)
+        Alert.alert("Error", "Não foi possível puxar as alternativas.")
+  
+      }
+    }
 
   //Chama o popup de desistir do quiz
   const handleExit = () => {
@@ -73,10 +99,10 @@ export function  Questions ({ navigation }: StackRoutesProps<"Questions">) {
   };
 
   //🔄 Enquanto carrega as perguntas, mostra uma tela de loading
-  if (shuffledQuestions.length === 0) {
+  if (shuffledTasks.length === 0) {
     return (
       <View style={tw`flex-1 justify-center items-center`}>
-        <Text>Carregando perguntas...</Text>
+        <Text>Nenhuma pergunta encontrada...</Text>
       </View>
     );
   }
@@ -86,32 +112,32 @@ export function  Questions ({ navigation }: StackRoutesProps<"Questions">) {
     <View style={styles.progressContainer}>
       <Progress.Bar
         color="rgb(59 130 246)"
-        progress={(currentQuestionIndex + 1) / shuffledQuestions.length}
+        progress={(currentQuestionIndex + 1) / shuffledTasks.length}
         width={400}
         height={15}
         borderColor="#ccc"
       />
       <Text style={styles.progressText}>
-        Pergunta {currentQuestionIndex + 1} de {shuffledQuestions.length}
+        Pergunta {currentQuestionIndex + 1} de {shuffledTasks.length}
       </Text>
     </View>
 
     <Text style={styles.questionTitle}>
-      {`${currentQuestionIndex + 1}.${shuffledQuestions[currentQuestionIndex].title}`}
+      {`${currentQuestionIndex + 1}.${shuffledTasks[currentQuestionIndex].title}`}
     </Text>
 
-    {shuffledQuestions[currentQuestionIndex].option.map((option, index) => (
+    {shuffledChoices.filter((item)=> item.task ===shuffledTasks[currentQuestionIndex].id ).map((option) => (
       <Pressable
-        key={index}
+        key={option.id}
         style={[
           styles.option,
-          selectedOption === option && (isCorrect
+          selectedOption?.id === option.id && (isCorrect
             ? styles.optionCorrect
             : styles.optionIncorrect),
         ]}
         onPress={() => handleOptionPress(option)}
       >
-        <Text style={styles.optionText}>{option}</Text>
+        <Text style={styles.optionText}>{option.title}</Text>
       </Pressable>
     ))}
 
@@ -123,7 +149,7 @@ export function  Questions ({ navigation }: StackRoutesProps<"Questions">) {
       onPress={handleNext}
     >
       <Text style={styles.nextButtonText}>
-        {currentQuestionIndex === shuffledQuestions.length - 1
+        {currentQuestionIndex === shuffledTasks.length - 1
           ? "Finalizar"
           : "Próximo"}
       </Text>
@@ -166,10 +192,10 @@ export function  Questions ({ navigation }: StackRoutesProps<"Questions">) {
       </View>
     </Modal>
 
-    <Image
+    {/*<Image
       source={require("../img/LOGO_AZUL.png")}
       style={styles.logo}
-    />
+    />*/}
   </View>
 );
 

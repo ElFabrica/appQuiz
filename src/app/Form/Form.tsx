@@ -13,39 +13,20 @@ Keyboard } from "react-native";
 import validator from 'email-validator';
 import { styles } from "./styles";
 import LottieView from 'lottie-react-native';
-import { store, TABLE_NAME, initializeStore } from "../../storge/Users"; // ✅ import externo
+import { userStorge, UserStorge } from "@/storge/Users";
 import MaskInput from 'react-native-mask-input'
 import { StackRoutesProps } from "@/routes/StackRoutes";
+import { Button } from "@/components/button";
+import { Input } from "@/components/Input";
 
 export  function Form({ navigation }: StackRoutesProps<"Form">) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [loaded, setLoaded] = useState(false);
 
-  //Ao carregar a página, ele inicializa o storge
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        console.log("Inicializando store...");
-        await initializeStore();  // Certifique-se de que a inicialização do store está correta
-        console.log("Store pronto!");
-        setLoaded(true);  // Atualize o estado para refletir que o banco foi carregado
-      } catch (e) {
-        //Se der merda em alguma coisa, vai avisae eu e o usuário
-        console.error("Erro ao inicializar banco:", e);
-        Alert.alert("Erro", "Não foi possível carregar o banco de dados.");
-      }
-    };
-    loadData();
-  }, []);
-
+  
   //Função que salva o formulário no storge do smartphone
-  function onSubmit() {
-    if (!loaded) { //Verifica se o banco inicializou corretamente
-      Alert.alert("Aguarde", "O banco de dados ainda está carregando...");
-      return;
-    }
+  async function onSubmit() {
       //Valida de algum dos dados estão vazios
     if (!(name && email && phone)) {
       Alert.alert("Erro", "Preencha todos os dados");
@@ -59,11 +40,13 @@ export  function Form({ navigation }: StackRoutesProps<"Form">) {
     //Caso funcione tudo redondo
     const id = Math.random().toString(30).substring(2, 20);  // Gerar ID único
     try {
-      // adicionar a linha ao store
-      store.setRow(TABLE_NAME, id, { name, email, phone });
-      console.log("Usuário adicionado ao banco com sucesso");
-      
-
+          const newItem = {
+            id: Math.random().toString(36).substring(2),
+            name,
+            email,
+            phone
+          }
+          await UserStorge.add(newItem)
       // Limpeza do formulário
       setName("");
       setEmail("");
@@ -100,26 +83,22 @@ export  function Form({ navigation }: StackRoutesProps<"Form">) {
           Cadastro
         </Text>
 
+        <View style={styles.content}>
         {/* NOME */}
         <View style={styles.inputContainer}>
-          <Text style={styles.inputLabel}>Nome</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="John"
-            value={name}
-            onChangeText={setName}
-          />
+        <Text style={styles.inputLabel}>Nome</Text>
+        <Input place="John"
+        value={name}
+        onChangeText={setName}
+        />
         </View>
-
         {/* EMAIL */}
         <View style={styles.inputContainer}>
           <Text style={styles.inputLabel}>Email</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="seu@email.com"
-            value={email}
-            onChangeText={setEmail}
-          />
+          <Input place="seu@email.com"
+          value={email}
+          onChangeText={setEmail}
+        />
         </View>
 
         {/* TELEFONE */}
@@ -134,20 +113,12 @@ export  function Form({ navigation }: StackRoutesProps<"Form">) {
             style={styles.input}
           />
         </View>
-
+        </View>
         {/* BOTÃO */}
-        <Pressable
-          style={[
-            styles.button,
-            loaded ? styles.buttonLoaded : styles.buttonDisabled
-          ]}
-          onPress={onSubmit}
-          disabled={!loaded}
-        >
-          <Text style={styles.buttonText}>
-            {loaded ? "Começar" : "Carregando..."}
-          </Text>
-        </Pressable>
+        <View style={styles.Footer}>
+        <Button title="Comrçar" 
+        onPress={onSubmit}/>
+        </View>
       </ScrollView>
     </TouchableWithoutFeedback>
   </KeyboardAvoidingView>

@@ -1,12 +1,11 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const ITEMS_STORGE_KEY = "@appQuiz:perguntas"
+const ITEMS_STORGE_KEY = "@appQuiz:Choices"
 
 export type choiceStorge = {
     id: string,
     title: string
     task: string
-    choiceRight: boolean
     order:number
 }
 //Faz uma busca de todos os itens dessa tabela

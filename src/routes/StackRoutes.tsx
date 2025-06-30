@@ -25,13 +25,21 @@ const Stack = createNativeStackNavigator<StackRoutesList>()
 
 export function StacksRoutes() {
     return(
-        <Stack.Navigator initialRouteName="Admin">
+        <Stack.Navigator initialRouteName="Admin" screenOptions={{
+            headerShown:false
+        }}>
             <Stack.Screen name="Home" component={Home}/>
-            <Stack.Screen name="Form" component={Form}/>  
+            <Stack.Screen name="Form" component={Form}options={{
+                headerShown:true
+            }}/>  
             <Stack.Screen name="Questions" component={Questions}/>  
             <Stack.Screen name="Score" component={Score}/>  
-            <Stack.Screen name="Users" component={Users}/>  
-            <Stack.Screen name="Admin" component={Admin}/>  
+            <Stack.Screen name="Users" component={Users} options={{
+                headerShown:true
+            }}/>  
+            <Stack.Screen name="Admin" component={Admin} options={{
+                headerShown:true
+            }}/>  
 
 
 

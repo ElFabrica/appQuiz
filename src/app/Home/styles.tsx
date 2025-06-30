@@ -1,8 +1,9 @@
 import { StyleSheet } from "react-native";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1
   },
   logo: {
     width: 120,  // w-30
@@ -19,23 +20,25 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    gap:16,
+    padding:8
   },
   title: {
     color: '#3B82F6', // text-blue-500
     fontWeight: '500',
-    fontSize: 40, // text-5xl ~40px
+    fontSize: RFValue(40), // text-5xl ~40px
     marginBottom: 20,
     lineHeight: 48,
     textAlign: 'center',
   },
   animation: {
-    width: '83%',
-    height: '33%',
+    width: '87%',
+    height: '28%',
   },
   instructionsTitle: {
     color: '#3B82F6',
     fontWeight: 'bold',
-    fontSize: 24, // text-3xl
+    fontSize: RFValue(24), // text-3xl
     textAlign: 'center',
     marginBottom: 20,
   },
@@ -87,7 +90,7 @@ export const styles = StyleSheet.create({
     elevation: 5,
   },
   modalTitle: {
-    fontSize: 20,
+    fontSize: RFValue(20),
     fontWeight: '600',
     marginBottom: 16,
     textAlign: 'center',

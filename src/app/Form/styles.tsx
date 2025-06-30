@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 export const styles = StyleSheet.create({
   container: {
@@ -11,7 +12,16 @@ export const styles = StyleSheet.create({
   },
   animationContainer: {
     alignItems: 'center',
+    marginTop: 16
+  },
+  Footer: {
+    alignItems: 'center',
     marginTop: 16,
+    justifyContent:"center",
+    width:"100%"
+  
+  },content:{
+    gap:16
   },
   animation: {
     width: '50%',
@@ -24,8 +34,7 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
   },
   inputContainer: {
-    width: '100%',
-    marginBottom: 16,
+    width: '100%'
   },
   inputLabel: {
     fontSize: 18,

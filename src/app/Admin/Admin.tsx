@@ -4,6 +4,7 @@ import tw from 'twrnc';
 import { TaskStorge, taskStorge } from '@/storge/Tasks';
 import { CircleDashed, CircleCheck } from "lucide-react-native";
 import { ChoiceStorge, choiceStorge } from '@/storge/Choices';
+import { Button } from '@/components/button';
 
 // 🎯 Interface para o prêmio
 
@@ -27,7 +28,7 @@ export function Admin() {
   const DownloadData = async () => {
     setLoadingDownload(true)
     try {
-      const response = await fetch("https://nasago.bubbleapps.io/version-test/api/1.1/wf/");
+      const response = await fetch("https://nasago.bubbleapps.io/version-test/api/1.1/wf/tasks-nasa");
 
       const dataTask = await response.json().then(res => res.response.Tasks) as taskStorge[]
       for (let i in dataTask) {
@@ -35,7 +36,8 @@ export function Admin() {
           id: dataTask[i].id,
           title: dataTask[i].title,
           points: dataTask[i].points,
-          order: dataTask[i].order
+          order: dataTask[i].order,
+          choiceRight:dataTask[i].choiceRight
         }
         await TaskStorge.add(newItem)
         
@@ -49,7 +51,6 @@ export function Admin() {
           id: dataChoice[i].id,
           title: dataChoice[i].title,
           task: dataChoice[i].task,
-          choiceRight: dataChoice[i].choiceRight,
           order: dataChoice[i].order
         }
         await ChoiceStorge.add(newItem)
@@ -77,7 +78,6 @@ export function Admin() {
       id: Math.random().toString(36).substring(2),
       title: titleTask,
       points: pointsTask,
-      choiceRight,
       order: taskOrder
     }
     await TaskStorge.add(newItem)
@@ -228,6 +228,7 @@ export function Admin() {
           );
         }}
       />
+      <Button title='Baixar tasks' onPress={DownloadData}/>
     </View>
   );
 };

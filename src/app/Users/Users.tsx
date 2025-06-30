@@ -2,38 +2,36 @@
 import { View, Text, Pressable, Alert, TextInput, Modal, FlatList,StyleSheet } from 'react-native';
 import { useEffect, useState } from 'react';
 import tw from 'twrnc';
-import { store, TABLE_NAME, initializeStore, clearTable } from "../../storge/Users";
+import { UserStorge, userStorge } from '../../storge/Users';
+
 
 export function Users() {
 
-
-  interface users{
-    name: string
-    email: string
-    phone: string
-  }
-
-  const [users, setUsers] = useState([]);
+  const [userStorge, setUserStorge] = useState<userStorge[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [uploadModalVisible, setUploadModalVisible] = useState(false);
   const [password, setPassword] = useState('');
 
+
+
   const CORRECT_KEY = "Fala1234@";//Top Senhas
 
-  const handleClear = async () => {
-    try {
-      await clearTable();
-      get(); // Atualiza a lista
-      Alert.alert("Sucesso", "Todos os dados foram apagados.");
-    } catch (error) {
-      console.error("Erro ao limpar storage:", error);
-      Alert.alert("Erro", "Não foi possível limpar os dados.");
+    async function handleUserClear() {
+      try {
+        await UserStorge.clear()
+
+        await handleUsers()
+  
+      } catch (error) {
+        console.log(error)
+        Alert.alert("Remover", `Não foi possível remover.`)
+      }
     }
-  };
   //Função que verifica a senha para limpar dos dados
   const handleClearConfirmation = () => {
     if (password === CORRECT_KEY) {
-      handleClear();
+      handleUserClear()
+      handleUsers();
       setModalVisible(false);
       setPassword('');
     } else {
@@ -41,9 +39,9 @@ export function Users() {
     }
   };
   //Função que sobe os dados para o banco (É chamada em um loop mais abaixo)
-  const UpdateItems = async ({ id:string, name:string, email:string, phone:string, game:string }) => {
+  const UpdateItems = async ({ id, name, email, phone }: userStorge) => {
     try {
-      const data = { id, name, email, phone, game };
+      const data = { id, name, email, phone };
       const response = await fetch("https://nasago.bubbleapps.io/version-test/api/1.1/wf/form_totem", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -59,44 +57,41 @@ export function Users() {
   };
 //Função que ocorre em cada item do Storge do smarthpone para e manda para o banco
   const loopUpdateItems = async () => {
-    for (let item of users) {
+    for (let item of userStorge) {
       await UpdateItems({ id: item.id, name: item.name, email: item.email, phone: item.phone, game:"Quiz" });
     }
     Alert.alert("Dados enviados com sucesso!");
   };
   
     //Função que pega os dados do storge da tabela "TABLE_NAME"
-  const get = () => {
-    const data = store.getTable(TABLE_NAME);
-    const response = Object.entries(data).map(([id, user]) => ({
-      id,
-      name: String(user.name),
-      email: String(user.email),
-      phone: String(user.phone),
-    }));
-    setUsers(response); //Pega todos os dados presente no Storge e manda pra varivável Users
-
-   /*console.log('📦 Dados atuais:', data); //Mostrar dados no console*/
-  };
+  async function handleUsers() {
+      try {
+        const response = await UserStorge.get()
+        setUserStorge(response)
+      } catch (error) {
+        console.log(error)
+        Alert.alert("Error", "Não foi possível atualizar os status.")
+  
+      }
+    }
 
   useEffect(() => {
-    const loadData = async () => {
+
       try {
-        await initializeStore();
-        get(); // Carrega os dados após inicializar
+        handleUsers()
       } catch (e) {
         console.error("Erro ao inicializar banco:", e);
         Alert.alert("Erro", "Não foi possível carregar o banco de dados.");
       }
-    };
-    loadData();
+    
+
   }, []);
 
   return (
     <View style={tw`flex-1 items-center mt-8 px-4`}>
-      <Text style={tw`text-xl font-medium`}>{users.length} Inscritos</Text>
+      <Text style={tw`text-xl font-medium`}>{userStorge.length} Inscritos</Text>
       <View style={tw`mt-6 w-full`}>
-        {users.length > 0 && (
+        {userStorge.length > 0 && (
           <View style={tw`flex-row justify-between items-center`}>
             <Text style={tw`text-base text-center min-w-30`}>Nome</Text>
             <Text style={tw`text-base text-center min-w-30`}>Email</Text>
@@ -105,7 +100,7 @@ export function Users() {
         )}
         <View style={{height: "84%"}}>
         <FlatList
-          data={users}
+          data={userStorge}
           keyExtractor={(item) => item.id}
           renderItem={({item}) =>(
             <View key={item.id} style={tw`flex-row justify-between`}>
@@ -121,7 +116,7 @@ export function Users() {
         />
       </View>
         {/*Footer*/}
-        {users.length > 0 && (
+        {userStorge.length > 0 && (
           <View style={tw`flex-row absolute items-center justify-center gap-4 mt-4 bottom-5 left-5 right-5`}>
             <Pressable
               style={tw`bg-purple-500 p-4 rounded-md`}

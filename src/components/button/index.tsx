@@ -7,7 +7,7 @@ type Props =TouchableOpacityProps & {
         size?: number
 }
 
-export function Button({title,size = 80, ...rest}: Props) {
+export function Button({title,size = 20, ...rest}: Props) {
 
     return(
         <TouchableOpacity style={styles.container} {...rest} activeOpacity={0.8} >
