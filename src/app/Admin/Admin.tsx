@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, Pressable, FlatList, Alert } from 'react-native';
 import tw from 'twrnc';
 import { TaskStorge, taskStorge } from '@/storge/Tasks';
-import { CircleDashed, CircleCheck } from "lucide-react-native";
+import { CircleDashed, CircleCheck, Icon } from "lucide-react-native";
 import { ChoiceStorge, choiceStorge } from '@/storge/Choices';
 import { Button } from '@/components/button';
 
@@ -30,7 +30,7 @@ export function Admin() {
     try {
       const response = await fetch("https://nasago.bubbleapps.io/version-test/api/1.1/wf/tasks-nasa");
 
-      const dataTask = await response.json().then(res => res.response.Tasks) as taskStorge[]
+      const dataTask = await response.json().then(res => res.response.tasks) as taskStorge[]
       for (let i in dataTask) {
         const newItem = {
           id: dataTask[i].id,
@@ -40,20 +40,20 @@ export function Admin() {
           choiceRight:dataTask[i].choiceRight
         }
         await TaskStorge.add(newItem)
-        
+        console.log(Tasks)
       }
       try {
-        const response = await fetch("https://nasago.bubbleapps.io/version-test/api/1.1/wf/");
+        const response = await fetch("https://nasago.bubbleapps.io/version-test/api/1.1/wf/choice-nasa");
 
-      const dataChoice = await response.json().then(res => res.response.Tasks) as choiceStorge[]
-      for (let i in dataTask) {
+      const dataChoice = await response.json().then(res => res.response.choice) as choiceStorge[]
+      for (let i in dataChoice) {
         const newItem = {
           id: dataChoice[i].id,
           title: dataChoice[i].title,
-          task: dataChoice[i].task,
-          order: dataChoice[i].order
+          task: dataChoice[i].task
         }
         await ChoiceStorge.add(newItem)
+        console.log(Choices)
       }} catch (error) {
         Alert.alert("Erro de conexão ou inesperado.");
       console.error('Erro:', error);
@@ -112,17 +112,18 @@ export function Admin() {
   //Remover Pergunta
   async function handleTaskRemove(id: string) {
     try {
-      const response = await TaskStorge.remove(id)
-
+      await TaskStorge.remove(id)
+console.log(Choices)
       try {
-        const SelecteToDie = Choices.filter(item => item.id === id)
-        SelecteToDie.forEach(item => {
-          handleChoicesRemove(item.id)
-        })
+        const SelecteToDie = Choices.filter(item => item.task === id)
+        for(let i = 1 ; i < SelecteToDie.length-1;i++ ){
+          await handleChoicesRemove(SelecteToDie[i].id)
+          
+        }
       } catch (error) {
         console.log("Algo de errado ocorreu")
       }
-      await handleTasks()
+      
 
     } catch (error) {
       console.log(error)
@@ -133,7 +134,7 @@ export function Admin() {
   //Remover opções
   async function handleChoicesRemove(id: string) {
     try {
-      const response = await ChoiceStorge.remove(id)
+      await ChoiceStorge.remove(id)
 
     } catch (error) {
       console.log(error)
@@ -168,8 +169,7 @@ export function Admin() {
   useEffect(() => {
     handleTasks()
     handleChoices()
-
-  }, []);
+  }, [Choices, Tasks]);
 
   // ➕ Adiciona um prêmio novo
 
@@ -210,22 +210,34 @@ export function Admin() {
         data={Tasks}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => {
+          const choicesForTask = Choices.filter((choice) => choice.task === item.id);
 
-          return (
-            <View style={tw`flex-row justify-between items-center mb-2`}>
-              <View style={{ width: "80%" }}>
-                <Text style={tw`font-bold text-lg`}>Prêmio: {item.title}</Text>
-                <Text style={{ fontSize: 14, fontWeight: 500 }}>Prêmio mensagem: {item.points}</Text>
+return (
+  <View style={tw`border border-gray-300 rounded mb-4 p-3`}>
+    <Text style={tw`font-bold text-lg mb-2`}>{item.title}</Text>
+    <Text style={tw`mb-2`}>Pontos: {item.points}</Text>
 
-              </View>
-              <Pressable
-                onPress={() => handleTaskRemove(item.id)}
-                style={tw`bg-red-500 px-3 py-2 rounded`}
-              >
-                <Text style={tw`text-white`}>🗑️ Excluir</Text>
-              </Pressable>
-            </View>
-          );
+{choicesForTask.map((choice) => (
+  <View key={`${item.id}-${choice.id}`} style={tw`flex-row items-center mb-1`}>
+    {item.choiceRight === choice.id ? (
+      <CircleCheck color="green" size={20} style={tw`mr-2`} />
+    ) : (
+      <CircleDashed color="gray" size={20} style={tw`mr-2`} />
+    )}
+    <Text>{choice.title}</Text>
+  </View>
+))}
+
+
+    <Pressable
+      onPress={() => handleTaskRemove(item.id)}
+      style={tw`bg-red-500 px-3 py-2 rounded mt-2 self-end`}
+    >
+      <Text style={tw`text-white`}>🗑️ Excluir</Text>
+    </Pressable>
+  </View>
+);
+
         }}
       />
       <Button title='Baixar tasks' onPress={DownloadData}/>

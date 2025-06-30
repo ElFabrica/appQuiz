@@ -15,7 +15,7 @@ export function  Questions ({ navigation }: StackRoutesProps<"Questions">) {
 
 
   const [shuffledTasks, setShuffledTasks] = useState<taskStorge[]>([]); // Estado que guarda as perguntas embaralhadas
-  const [shuffledChoices, setshuffledChoices] = useState<choiceStorge[]>([])
+  const [shuffledChoices, setShuffledChoices] = useState<choiceStorge[]>([])
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
@@ -84,7 +84,7 @@ export function  Questions ({ navigation }: StackRoutesProps<"Questions">) {
     async function handleChoices() {
       try {
         const response = await ChoiceStorge.get()
-        setshuffledChoices(response)
+        setShuffledChoices(response)
       } catch (error) {
         console.log(error)
         Alert.alert("Error", "Não foi possível puxar as alternativas.")
@@ -126,8 +126,10 @@ export function  Questions ({ navigation }: StackRoutesProps<"Questions">) {
       {`${currentQuestionIndex + 1}.${shuffledTasks[currentQuestionIndex].title}`}
     </Text>
 
-    {shuffledChoices.filter((item)=> item.task ===shuffledTasks[currentQuestionIndex].id ).map((option) => (
+    {shuffledChoices.filter((item)=> item.task === shuffledTasks[currentQuestionIndex].id ).map((option) => (
+      
       <Pressable
+      
         key={option.id}
         style={[
           styles.option,

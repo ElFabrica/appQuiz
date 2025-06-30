@@ -6,7 +6,6 @@ export type choiceStorge = {
     id: string,
     title: string
     task: string
-    order:number
 }
 //Faz uma busca de todos os itens dessa tabela
 async function get(): Promise<choiceStorge[]> {
