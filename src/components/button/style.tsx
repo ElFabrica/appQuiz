@@ -16,5 +16,7 @@ export const styles = StyleSheet.create({
     title: {
         color: "#FFFFFF",
         fontWeight: "600"
+    },isSelected:{
+        opacity:0.4
     }
 });

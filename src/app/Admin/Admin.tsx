@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, Pressable, FlatList, Alert } from 'react-native';
 import tw from 'twrnc';
 import { TaskStorge, taskStorge } from '@/storge/Tasks';
-import { CircleDashed, CircleCheck, Icon } from "lucide-react-native";
+import { CircleDashed, CircleCheck, Icon, Trash } from "lucide-react-native";
 import { ChoiceStorge, choiceStorge } from '@/storge/Choices';
 import { Button } from '@/components/button';
 
@@ -112,8 +112,6 @@ export function Admin() {
   //Remover Pergunta
   async function handleTaskRemove(id: string) {
     try {
-      await TaskStorge.remove(id)
-console.log(Choices)
       try {
         const SelecteToDie = Choices.filter(item => item.task === id)
         for(let i = 1 ; i < SelecteToDie.length-1;i++ ){
@@ -121,13 +119,17 @@ console.log(Choices)
           
         }
       } catch (error) {
-        console.log("Algo de errado ocorreu")
+        console.log("Algo de errado  em deletar as choices")
       }
+      
+      await TaskStorge.remove(id)
+console.log(Choices)
+      
       
 
     } catch (error) {
       console.log(error)
-      Alert.alert("Remover", `Não foi possível remover.`)
+      Alert.alert("Remover", `Não foi possível remover a task.`)
     }
   }
 
@@ -135,11 +137,13 @@ console.log(Choices)
   async function handleChoicesRemove(id: string) {
     try {
       await ChoiceStorge.remove(id)
+      handleChoices()
 
     } catch (error) {
       console.log(error)
       Alert.alert("Remover", `Não foi possível remover.`)
     }
+
   }
 
 
@@ -226,6 +230,7 @@ return (
       <CircleDashed color="gray" size={20} style={tw`mr-2`} />
     )}
     <Text>{choice.title}</Text>
+    <Trash color="green" size={20} style={tw`mr-2`} onPress={()=>handleChoicesRemove(choice.id)} />
   </View>
 ))}
 
@@ -241,7 +246,10 @@ return (
 
         }}
       />
-      <Button title='Baixar tasks' onPress={DownloadData}/>
+      <Button title='Baixar tasks' 
+       
+      onPress={DownloadData}
+      disabled = {LoadingDownload}/>
     </View>
   );
 };

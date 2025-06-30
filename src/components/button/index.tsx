@@ -5,13 +5,14 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 type Props =TouchableOpacityProps & {
         title: string
         size?: number
+        disable?:boolean
 }
 
-export function Button({title,size = 20, ...rest}: Props) {
+export function Button({title,size = 20,disable, ...rest}: Props) {
 
     return(
         <TouchableOpacity style={styles.container} {...rest} activeOpacity={0.8} >
-            <Text style={[styles.title, {fontSize:RFValue(size)}]}>{title}</Text>
+            <Text style={[styles.title, {fontSize:RFValue(size)}, disable && {opacity:0.4} ]}>{title}</Text>
         </TouchableOpacity>
     )
     

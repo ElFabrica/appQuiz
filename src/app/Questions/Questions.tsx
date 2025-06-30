@@ -5,13 +5,14 @@ import { reactQuestions } from "../../tasks/question";
 import tw from "twrnc";
 import * as Progress from 'react-native-progress';
 
-import { TaskStorge,taskStorge } from "@/storge/Tasks";
+import { TaskStorge, taskStorge } from "@/storge/Tasks";
 import { ChoiceStorge, choiceStorge } from "@/storge/Choices";
 
 import { StackRoutesProps } from "@/routes/StackRoutes";
 import { styles } from "./styles";
+import { Button } from "@/components/button";
 
-export function  Questions ({ navigation }: StackRoutesProps<"Questions">) {
+export function Questions({ navigation }: StackRoutesProps<"Questions">) {
 
 
   const [shuffledTasks, setShuffledTasks] = useState<taskStorge[]>([]); // Estado que guarda as perguntas embaralhadas
@@ -24,7 +25,7 @@ export function  Questions ({ navigation }: StackRoutesProps<"Questions">) {
   const [modalVisible, setModalVisible] = useState(false);
 
   // 🔀 Função para embaralhar array (Fisher-Yates Shuffle)
-  function shuffleArray (array:taskStorge[]){
+  function shuffleArray(array: taskStorge[]) {
     const shuffled = [...array];
     for (let i = shuffled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -57,40 +58,45 @@ export function  Questions ({ navigation }: StackRoutesProps<"Questions">) {
   };
 
   //Função de clicar na opção e recebe a opção como parâmetro
-  const handleOptionPress = (pressedOption:choiceStorge) => {
-    if (selectedOption) { //Verifica se já foi clicado
-      return;
-    }
-    setSelectedOption(pressedOption); //Salva a opção selecionada
-    const isAnwserCorrect =
-      shuffledTasks[currentQuestionIndex].choiceRight === pressedOption.id;
-    setIsCorrect(true);
+const handleOptionPress = (pressedOption: choiceStorge) => {
+  if (selectedOption) {
+    return;
+  }
 
-    if (isAnwserCorrect) { //Se a opção for correta, ele adiciona mais 20 pontos
-      setScore((prevScore) => prevScore + 20);
-    }
-  };
+  setSelectedOption(pressedOption);
+
+  const isAnswerCorrect = shuffledTasks[currentQuestionIndex].choiceRight === pressedOption.id;
+  setIsCorrect(isAnswerCorrect); // aqui só para atualizar o estado visualmente
+
+  console.log("Resposta correta?", isAnswerCorrect);
+
+  if (isAnswerCorrect) {
+    setScore((prevScore) => prevScore + shuffledTasks[currentQuestionIndex].points);
+    console.log("Mais pontos adicionados!");
+  }
+};
+
 
   async function handleTasks() {
-      try {
-        const response = await TaskStorge.get()
-        setShuffledTasks(response)
-      } catch (error) {
-        console.log(error)
-        Alert.alert("Error", "Não foi possível puxar as perguntas.")
-  
-      }
+    try {
+      const response = await TaskStorge.get()
+      setShuffledTasks(response)
+    } catch (error) {
+      console.log(error)
+      Alert.alert("Error", "Não foi possível puxar as perguntas.")
+
     }
-    async function handleChoices() {
-      try {
-        const response = await ChoiceStorge.get()
-        setShuffledChoices(response)
-      } catch (error) {
-        console.log(error)
-        Alert.alert("Error", "Não foi possível puxar as alternativas.")
-  
-      }
+  }
+  async function handleChoices() {
+    try {
+      const response = await ChoiceStorge.get()
+      setShuffledChoices(response)
+    } catch (error) {
+      console.log(error)
+      Alert.alert("Error", "Não foi possível puxar as alternativas.")
+
     }
+  }
 
   //Chama o popup de desistir do quiz
   const handleExit = () => {
@@ -108,97 +114,91 @@ export function  Questions ({ navigation }: StackRoutesProps<"Questions">) {
   }
 
   return (
-  <View style={styles.container}>
-    <View style={styles.progressContainer}>
-      <Progress.Bar
-        color="rgb(59 130 246)"
-        progress={(currentQuestionIndex + 1) / shuffledTasks.length}
-        width={400}
-        height={15}
-        borderColor="#ccc"
-      />
-      <Text style={styles.progressText}>
-        Pergunta {currentQuestionIndex + 1} de {shuffledTasks.length}
+    <View style={styles.container}>
+      <View style={styles.progressContainer}>
+        <Progress.Bar
+          color="rgb(59 130 246)"
+          progress={(currentQuestionIndex + 1) / shuffledTasks.length}
+          width={400}
+          height={15}
+          borderColor="#ccc"
+        />
+        <Text style={styles.progressText}>
+          Pergunta {currentQuestionIndex + 1} de {shuffledTasks.length}
+        </Text>
+      </View>
+
+      <Text style={styles.questionTitle}>
+        {`${currentQuestionIndex + 1}.${shuffledTasks[currentQuestionIndex].title}`}
       </Text>
-    </View>
 
-    <Text style={styles.questionTitle}>
-      {`${currentQuestionIndex + 1}.${shuffledTasks[currentQuestionIndex].title}`}
-    </Text>
+      {shuffledChoices.filter((item) => item.task === shuffledTasks[currentQuestionIndex].id).map((option) => (
 
-    {shuffledChoices.filter((item)=> item.task === shuffledTasks[currentQuestionIndex].id ).map((option) => (
-      
-      <Pressable
-      
-        key={option.id}
-        style={[
-          styles.option,
-          selectedOption?.id === option.id && (isCorrect
-            ? styles.optionCorrect
-            : styles.optionIncorrect),
-        ]}
-        onPress={() => handleOptionPress(option)}
-      >
-        <Text style={styles.optionText}>{option.title}</Text>
-      </Pressable>
-    ))}
+        <Pressable
 
-    <Pressable
-      style={[
-        styles.nextButton,
-        { opacity: selectedOption ? 1 : 0.6 },
-      ]}
-      onPress={handleNext}
-    >
-      <Text style={styles.nextButtonText}>
-        {currentQuestionIndex === shuffledTasks.length - 1
+          key={option.id}
+          style={[
+            styles.option,
+            selectedOption?.id === option.id && (isCorrect
+              ? styles.optionCorrect
+              : styles.optionIncorrect),
+          ]}
+          onPress={() => handleOptionPress(option)}
+        >
+          <Text style={styles.optionText}>{option.title}</Text>
+        </Pressable>
+      ))}
+      <Button
+        title={currentQuestionIndex === shuffledTasks.length - 1
           ? "Finalizar"
           : "Próximo"}
-      </Text>
-    </Pressable>
+          size={22}
+        onPress={handleNext}
+        disable = {!selectedOption}
+      />
+      
+      <Pressable
+        style={styles.exitButton}
+        onPress={() => setModalVisible(true)}
+      >
+        <Text style={styles.exitButtonText}>Sair</Text>
+      </Pressable>
 
-    <Pressable
-      style={styles.exitButton}
-      onPress={() => setModalVisible(true)}
-    >
-      <Text style={styles.exitButtonText}>Sair</Text>
-    </Pressable>
+      <Modal
+        transparent={true}
+        visible={modalVisible}
+        animationType="fade"
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>
+              Deseja realmente sair do quiz?
+            </Text>
 
-    <Modal
-      transparent={true}
-      visible={modalVisible}
-      animationType="fade"
-      onRequestClose={() => setModalVisible(false)}
-    >
-      <View style={styles.modalOverlay}>
-        <View style={styles.modalContent}>
-          <Text style={styles.modalTitle}>
-            Deseja realmente sair do quiz?
-          </Text>
-
-          <View style={styles.modalButtons}>
-            <Pressable
-              style={styles.modalCancel}
-              onPress={() => setModalVisible(false)}
-            >
-              <Text style={styles.modalCancelText}>Não</Text>
-            </Pressable>
-            <Pressable
-              style={styles.modalConfirm}
-              onPress={handleExit}
-            >
-              <Text style={styles.modalConfirmText}>Sim</Text>
-            </Pressable>
+            <View style={styles.modalButtons}>
+              <Pressable
+                style={styles.modalCancel}
+                onPress={() => setModalVisible(false)}
+              >
+                <Text style={styles.modalCancelText}>Não</Text>
+              </Pressable>
+              <Pressable
+                style={styles.modalConfirm}
+                onPress={handleExit}
+              >
+                <Text style={styles.modalConfirmText}>Sim</Text>
+              </Pressable>
+            </View>
           </View>
         </View>
-      </View>
-    </Modal>
+      </Modal>
 
-    {/*<Image
+      {/*<Image
       source={require("../img/LOGO_AZUL.png")}
       style={styles.logo}
     />*/}
-  </View>
-);
+    </View>
+  );
 
 };
