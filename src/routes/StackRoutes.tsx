@@ -25,7 +25,7 @@ const Stack = createNativeStackNavigator<StackRoutesList>()
 
 export function StacksRoutes() {
     return(
-        <Stack.Navigator initialRouteName="Questions" screenOptions={{
+        <Stack.Navigator initialRouteName="Home" screenOptions={{
             headerShown:false
         }}>
             <Stack.Screen name="Home" component={Home}/>

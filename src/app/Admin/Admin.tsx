@@ -169,6 +169,7 @@ console.log(Choices)
   useEffect(() => {
     handleTasks()
     handleChoices()
+
   }, [Choices, Tasks]);
 
   // ➕ Adiciona um prêmio novo

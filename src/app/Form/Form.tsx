@@ -116,7 +116,7 @@ export  function Form({ navigation }: StackRoutesProps<"Form">) {
         </View>
         {/* BOTÃO */}
         <View style={styles.Footer}>
-        <Button title="Comrçar" 
+        <Button title="Começar" 
         onPress={onSubmit}/>
         </View>
       </ScrollView>

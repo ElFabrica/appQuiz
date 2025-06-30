@@ -19,7 +19,7 @@
     "lottie-react-native": "^7.2.2",
     "lucide-react-native": "^0.525.0",
     "react": "19.0.0",
-    "react-native": "0.79.2",
+    "react-native": "^0.79.4",
     "react-native-gesture-handler": "^2.26.0",
     "react-native-mask-input": "^1.2.3",
     "react-native-progress": "^5.0.1",

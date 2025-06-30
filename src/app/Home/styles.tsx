@@ -13,8 +13,8 @@ export const styles = StyleSheet.create({
     right: 20,
   },
   icon: {
-    marginTop: 16,
-    marginHorizontal: 8,
+    marginTop: 40,
+    marginHorizontal: 12,
   },
   mainContent: {
     flex: 1,
