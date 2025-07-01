@@ -75,5 +75,19 @@ export const styles = StyleSheet.create({
     width: "100%", 
     justifyContent: "space-between", 
     paddingHorizontal: 10
-  }
+  },
+  checkboxContainer: {
+  flexDirection: "row",
+  alignItems: "flex-start",
+},
+checkboxIcon: {
+  fontSize: RFValue(20),
+  marginRight: 10,
+  marginTop: 2,
+},
+checkboxText: {
+  flex: 1,
+  fontSize: RFValue(14),
+  color: "#333333",
+}
 });
