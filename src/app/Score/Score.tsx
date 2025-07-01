@@ -43,7 +43,6 @@ export function Score({ navigation, route }: StackRoutesProps<"Score">) {
       resizeMode="cover"
       style={{ flex: 1, paddingTop:26}}
     >
-      <LogoAbsolut/>
       <View style={styles.container}>
         <LottieView
           source={require('../../assets/animations/Finish2.json')}

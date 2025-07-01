@@ -51,7 +51,6 @@ export function Instructions({ navigation }: StackRoutesProps<"Instructions">) {
       resizeMode="cover"
       style={{ flex: 1 }}
     >
-      <LogoAbsolut/>
       <View style={styles.container}>
         {/* Ícone de configurações */}
         {/* Conteúdo principal */}

@@ -65,7 +65,6 @@ export  function Form({ navigation }: StackRoutesProps<"Form">) {
         resizeMode="cover"
         style={{flex:1}}
         >
-  <LogoAbsolut/>
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ScrollView
         contentContainerStyle={styles.scrollContainer}

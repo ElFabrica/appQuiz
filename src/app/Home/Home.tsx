@@ -57,7 +57,6 @@ export function Home({ navigation }: StackRoutesProps<"Home">) {
           <Pressable onPress={() => setOptionsModalVisible(true)}>
             <Icon name="gear" size={24} color="purple" style={styles.icon} />
           </Pressable>
-          <Logo />
         </View>
 
         {/* Conteúdo principal */}
