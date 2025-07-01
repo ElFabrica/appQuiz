@@ -106,7 +106,7 @@ const handleExit = () => {
 
   return (
     <ImageBackground
-      source={require("../../assets/Background_without-logo.png")}
+      source={require("../../assets/Background_with-logo.png")}
       resizeMode="cover"
       style={{ flex: 1 }}
     >

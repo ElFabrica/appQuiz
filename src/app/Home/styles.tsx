@@ -51,7 +51,7 @@ export const styles = StyleSheet.create({
   },
   instructionsText: {
     color: '#FFFFFF',
-    fontSize: RFValue(18),
+    fontSize: RFValue(16),
     textAlign: 'center',
     marginBottom: 4,
   },

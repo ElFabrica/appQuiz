@@ -41,12 +41,16 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   input: {
-    padding: RFValue(16),
-    borderWidth: 2,
-    borderColor: '#3B82F6', // border-blue-500
-    width: '100%',
-    borderRadius: 8,
-    fontSize: RFValue(22)
+        color:"#333333",
+        fontSize: RFValue(22),
+        backgroundColor: "#FFFFFF",
+        fontWeight: 600,
+        borderWidth: 2,
+        borderRadius: 8,
+        borderColor:"#3B82F6",
+        padding: 16,
+        width: "100%",
+        minHeight: "auto",
   },
   button: {
     padding: 16,

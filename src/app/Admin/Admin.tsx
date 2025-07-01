@@ -26,48 +26,58 @@ export function Admin() {
 
   //Baixar dados
   const DownloadData = async () => {
-    setLoadingDownload(true)
+    setLoadingDownload(true);
     try {
-      const response = await fetch("https://nasago.bubbleapps.io/version-test/api/1.1/wf/tasks-nasa");
-
-      const dataTask = await response.json().then(res => res.response.tasks) as taskStorge[]
-      for (let i in dataTask) {
-        const newItem = {
-          id: dataTask[i].id,
-          title: dataTask[i].title,
-          points: dataTask[i].points,
-          order: dataTask[i].order,
-          choiceRight:dataTask[i].choiceRight
-        }
-        await TaskStorge.add(newItem)
-        console.log(Tasks)
-      }
-      try {
-        const response = await fetch("https://nasago.bubbleapps.io/version-test/api/1.1/wf/choice-nasa");
-
-      const dataChoice = await response.json().then(res => res.response.choice) as choiceStorge[]
-      for (let i in dataChoice) {
-        const newItem = {
-          id: dataChoice[i].id,
-          title: dataChoice[i].title,
-          task: dataChoice[i].task
-        }
-        await ChoiceStorge.add(newItem)
-        console.log(Choices)
-      }} catch (error) {
-        Alert.alert("Erro de conexão ou inesperado.");
-      console.error('Erro:', error);
-      }
-      setLoadingDownload(false)
+      await downloadTasks();
+      await downloadChoices();
     } catch (error) {
       Alert.alert("Erro de conexão ou inesperado.");
       console.error('Erro:', error);
     } finally {
-      setLoadingDownload(false)
+      setLoadingDownload(false);
     }
   };
 
-  
+  const downloadTasks = async () => {
+    const response = await fetch("https://nasago.bubbleapps.io/version-test/api/1.1/wf/tasks-nasa");
+    const json = await response.json();
+    const tasks = json.response?.tasks as taskStorge[];
+
+    if (!tasks) throw new Error("Não foi possível obter as tarefas.");
+
+    for (const task of tasks) {
+      const newItem: taskStorge = {
+        id: task.id,
+        title: task.title,
+        points: task.points,
+        order: task.order,
+        choiceRight: task.choiceRight,
+      };
+      await TaskStorge.add(newItem);
+      console.log('Task adicionada:', newItem);
+    }
+  };
+
+  const downloadChoices = async () => {
+    const response = await fetch("https://nasago.bubbleapps.io/version-test/api/1.1/wf/choice-nasa");
+    const json = await response.json();
+    const choices = json.response?.choice as choiceStorge[];
+
+    if (!choices) throw new Error("Não foi possível obter as escolhas.");
+
+    for (const choice of choices) {
+      const newItem: choiceStorge = {
+        id: choice.id,
+        title: choice.title,
+        task: choice.task,
+      };
+      await ChoiceStorge.add(newItem);
+      console.log('Choice adicionada:', newItem);
+    }
+  };
+
+
+
 
   //Adiciona item
   async function handleTaskAdd() {
@@ -114,18 +124,18 @@ export function Admin() {
     try {
       try {
         const SelecteToDie = Choices.filter(item => item.task === id)
-        for(let i = 1 ; i < SelecteToDie.length-1;i++ ){
+        for (let i = 1; i < SelecteToDie.length - 1; i++) {
           await handleChoicesRemove(SelecteToDie[i].id)
-          
+
         }
       } catch (error) {
         console.log("Algo de errado  em deletar as choices")
       }
-      
+
       await TaskStorge.remove(id)
-console.log(Choices)
-      
-      
+      console.log(Choices)
+
+
 
     } catch (error) {
       console.log(error)
@@ -217,39 +227,39 @@ console.log(Choices)
         renderItem={({ item }) => {
           const choicesForTask = Choices.filter((choice) => choice.task === item.id);
 
-return (
-  <View style={tw`border border-gray-300 rounded mb-4 p-3`}>
-    <Text style={tw`font-bold text-lg mb-2`}>{item.title}</Text>
-    <Text style={tw`mb-2`}>Pontos: {item.points}</Text>
+          return (
+            <View style={tw`border border-gray-300 rounded mb-4 p-3`}>
+              <Text style={tw`font-bold text-lg mb-2`}>{item.title}</Text>
+              <Text style={tw`mb-2`}>Pontos: {item.points}</Text>
 
-{choicesForTask.map((choice) => (
-  <View key={`${item.id}-${choice.id}`} style={tw`flex-row items-center mb-1`}>
-    {item.choiceRight === choice.id ? (
-      <CircleCheck color="green" size={20} style={tw`mr-2`} />
-    ) : (
-      <CircleDashed color="gray" size={20} style={tw`mr-2`} />
-    )}
-    <Text>{choice.title}</Text>
-    <Trash color="green" size={20} style={tw`mr-2`} onPress={()=>handleChoicesRemove(choice.id)} />
-  </View>
-))}
+              {choicesForTask.map((choice, index) => (
+                <View key={`${item.id}-${choice.id}-${index}`} style={tw`flex-row items-center mb-1`}>
+                  {item.choiceRight === choice.id ? (
+                    <CircleCheck color="green" size={20} style={tw`mr-2`} />
+                  ) : (
+                    <CircleDashed color="gray" size={20} style={tw`mr-2`} />
+                  )}
+                  <Text>{choice.title}</Text>
+                  <Trash color="green" size={20} style={tw`mr-2`} onPress={() => handleChoicesRemove(choice.id)} />
+                </View>
+              ))}
 
 
-    <Pressable
-      onPress={() => handleTaskRemove(item.id)}
-      style={tw`bg-red-500 px-3 py-2 rounded mt-2 self-end`}
-    >
-      <Text style={tw`text-white`}>🗑️ Excluir</Text>
-    </Pressable>
-  </View>
-);
+              <Pressable
+                onPress={() => handleTaskRemove(item.id)}
+                style={tw`bg-red-500 px-3 py-2 rounded mt-2 self-end`}
+              >
+                <Text style={tw`text-white`}>🗑️ Excluir</Text>
+              </Pressable>
+            </View>
+          );
 
         }}
       />
-      <Button title='Baixar tasks' 
-       
-      onPress={DownloadData}
-      disabled = {LoadingDownload}/>
+      <Button title='Baixar tasks'
+
+        onPress={DownloadData}
+        disabled={LoadingDownload} />
     </View>
   );
 };
