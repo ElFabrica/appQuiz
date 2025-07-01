@@ -38,7 +38,7 @@ export function Score({ navigation, route }: StackRoutesProps<"Score">) {
   }
   
   return (
-    <ImageBackground source={require("../../assets/Background_without-logo.png")} 
+    <ImageBackground source={require("../../assets/Background_with-logo.png")} 
         resizeMode="cover"
         style={{flex:1}}
         >
