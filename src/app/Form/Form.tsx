@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { View, 
   Text, 
-  Pressable, 
-  TextInput, 
+  ImageBackground,
   Alert,
   ScrollView, 
   KeyboardAvoidingView, 
@@ -61,10 +60,11 @@ export  function Form({ navigation }: StackRoutesProps<"Form">) {
   }
 
   return (
-  <KeyboardAvoidingView
-    behavior={Platform.OS === "ios" ? "padding" : "height"}
-    style={styles.container}
-  >
+    <ImageBackground source={require("../../assets/Background_without-logo.png")} 
+        resizeMode="cover"
+        style={{flex:1}}
+        >
+  
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ScrollView
         contentContainerStyle={styles.scrollContainer}
@@ -121,6 +121,7 @@ export  function Form({ navigation }: StackRoutesProps<"Form">) {
         </View>
       </ScrollView>
     </TouchableWithoutFeedback>
-  </KeyboardAvoidingView>
+  
+  </ImageBackground>
 )
 }

@@ -1,4 +1,4 @@
-import { View, Text, Pressable, Modal, TextInput, Alert } from "react-native";
+import { View, Text, Pressable, Modal, TextInput, Alert, ImageBackground } from "react-native";
 import React, { useState } from "react";
 import tw from 'twrnc';
 import LottieView from 'lottie-react-native';
@@ -45,6 +45,10 @@ export function Home({ navigation }: StackRoutesProps<"Home">) {
   }
 
   return (
+    <ImageBackground source={require("../../assets/Background_with-logo.png")} 
+    resizeMode="cover"
+    style={{flex:1}}
+    >
     <View style={styles.container}>
       {/* Ícone de configurações */}
       <Pressable onPress={() => setOptionsModalVisible(true)}>
@@ -52,7 +56,7 @@ export function Home({ navigation }: StackRoutesProps<"Home">) {
       </Pressable>
 
       {/* Conteúdo principal */}
-      <View style={styles.mainContent}>
+      <View style={styles.main}>
         <Text style={styles.title}>
           Bem-vindo ao{"\n"} Questionário
         </Text>
@@ -63,7 +67,7 @@ export function Home({ navigation }: StackRoutesProps<"Home">) {
           loop
           style={styles.animation}
         />
-
+          <View style={styles.content}>
         <Text style={styles.instructionsTitle}>Instruções</Text>
 
         <View style={styles.instructionsBox}>
@@ -80,9 +84,11 @@ export function Home({ navigation }: StackRoutesProps<"Home">) {
 
         <View style={styles.buttonContainer}>
           <Button
+          size={22}
             title="Iniciar"
             onPress={() => navigation.navigate("Form")}
           />
+        </View>
         </View>
       </View>
 
@@ -207,5 +213,6 @@ export function Home({ navigation }: StackRoutesProps<"Home">) {
         </View>
       </Modal>
     </View>
+    </ImageBackground>
   );
 }

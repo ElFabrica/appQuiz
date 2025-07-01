@@ -39,9 +39,9 @@ export function Users() {
     }
   };
   //Função que sobe os dados para o banco (É chamada em um loop mais abaixo)
-  const UpdateItems = async ({ id, name, email, phone }: userStorge) => {
+  const UpdateItems = async ({ id, name, email, phone, game }: userStorge) => {
     try {
-      const data = { id, name, email, phone };
+      const data = { id, name, email, phone, game:"Quiz" };
       const response = await fetch("https://nasago.bubbleapps.io/version-test/api/1.1/wf/form_totem", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

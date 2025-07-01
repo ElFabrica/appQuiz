@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 export const styles = StyleSheet.create({
   container: {
@@ -19,12 +20,13 @@ export const styles = StyleSheet.create({
     fontWeight: '600',
   },
   questionTitle: {
-    fontSize: 24,
+    fontSize: RFValue(24),
     marginBottom: 16,
   },
   option: {
     borderWidth: 2,
     borderColor: '#3B82F6', // border-blue-500 padrão
+    backgroundColor: "#FFFFF9",
     padding: 16,
     marginVertical: 8,
     borderRadius: 8,
@@ -48,7 +50,7 @@ export const styles = StyleSheet.create({
   },
   nextButtonText: {
     color: '#FFFFFF',
-    fontSize: 18,
+    fontSize: RFValue(18),
     textAlign: 'center',
     fontWeight: 'bold',
   },

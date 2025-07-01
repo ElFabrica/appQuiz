@@ -7,7 +7,8 @@ export const styles = StyleSheet.create({
   },
     input: {
         color:"#333333",
-        fontSize: RFValue(16),
+        fontSize: RFValue(22),
+        backgroundColor: "#FFFFFF",
         fontWeight: 600,
         borderWidth: 2,
         borderRadius: 8,

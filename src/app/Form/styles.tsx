@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
   },
   scrollContainer: {
     flexGrow: 1,
-    paddingHorizontal: 16,
+    paddingHorizontal: 24,
     marginBottom: 80,
   },
   animationContainer: {
@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
   },
   title: {
     color: '#3B82F6', // text-blue-500
-    fontSize: 32,
+    fontSize: RFValue(32),
     fontWeight: 'bold',
     textAlign: 'center',
   },
@@ -37,15 +37,16 @@ export const styles = StyleSheet.create({
     width: '100%'
   },
   inputLabel: {
-    fontSize: 18,
+    fontSize: RFValue(18),
     fontWeight: 'bold',
   },
   input: {
-    padding: 16,
+    padding: RFValue(16),
     borderWidth: 2,
     borderColor: '#3B82F6', // border-blue-500
     width: '100%',
     borderRadius: 8,
+    fontSize: RFValue(22)
   },
   button: {
     padding: 16,

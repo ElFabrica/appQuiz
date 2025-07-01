@@ -16,43 +16,42 @@ export const styles = StyleSheet.create({
     marginTop: 40,
     marginHorizontal: 12,
   },
-  mainContent: {
+  main: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     gap:16,
-    padding:8
+    padding:8,
+    paddingHorizontal:20
   },
   title: {
     color: '#3B82F6', // text-blue-500
     fontWeight: '500',
-    fontSize: RFValue(40), // text-5xl ~40px
-    marginBottom: 20,
-    lineHeight: 48,
+    fontSize: RFValue(40), // text-5xl ~40px    
     textAlign: 'center',
   },
   animation: {
     width: '87%',
-    height: '28%',
+    height: '37%',
   },
   instructionsTitle: {
     color: '#3B82F6',
     fontWeight: 'bold',
-    fontSize: RFValue(24), // text-3xl
+    fontSize: RFValue(30), // text-3xl
     textAlign: 'center',
-    marginBottom: 20,
   },
   instructionsBox: {
     backgroundColor: '#1E40AF', // bg-blue-800
     padding: 16,
+    paddingVertical: 20,
     borderRadius: 12,
-    width: '95%',
+    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
   },
   instructionsText: {
     color: '#FFFFFF',
-    fontSize: 18,
+    fontSize: RFValue(18),
     textAlign: 'center',
     marginBottom: 4,
   },
@@ -70,7 +69,7 @@ export const styles = StyleSheet.create({
   startButtonText: {
     color: '#FFFFFF',
     fontWeight: 'bold',
-    fontSize: 24,
+    fontSize: RFValue(24),
   },
   modalOverlay: {
     flex: 1,
@@ -100,7 +99,7 @@ export const styles = StyleSheet.create({
     borderColor: '#A855F7', // border-purple-500
     borderRadius: 8,
     padding: 12,
-    fontSize: 16,
+    fontSize: RFValue(16),
     marginBottom: 16,
   },
   modalButtons: {
@@ -121,6 +120,9 @@ export const styles = StyleSheet.create({
   },
   modalButtonText: {
     color: '#FFFFFF',
-    fontSize: 16,
+    fontSize: RFValue(16),
   },
+  content:{
+    gap:16
+  }
 });

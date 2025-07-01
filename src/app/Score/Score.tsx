@@ -1,4 +1,4 @@
-import { View, Text, Pressable, Image } from 'react-native';
+import { View, Text, Pressable, ImageBackground } from 'react-native';
 import React, { useEffect, useRef } from 'react';
 import { styles } from './styles'; 
 
@@ -7,6 +7,7 @@ import LottieView from 'lottie-react-native';
 
 import { useRoute, useIsFocused } from "@react-navigation/native";
 import { StackRoutesProps } from '@/routes/StackRoutes';
+import { Button } from '@/components/button';
 
 type RouteParams =  StackRoutesProps <"Score">
 
@@ -37,6 +38,10 @@ export function Score({ navigation, route }: StackRoutesProps<"Score">) {
   }
   
   return (
+    <ImageBackground source={require("../../assets/Background_without-logo.png")} 
+        resizeMode="cover"
+        style={{flex:1}}
+        >
   <View style={styles.container}>
     {/*<Image
       source={require('../img/LOGO_AZUL.png')}
@@ -55,13 +60,11 @@ export function Score({ navigation, route }: StackRoutesProps<"Score">) {
       Você concluiu seu formulário{"\n"}
       Sua pontuação foi {params?.score} pontos
     </Text>
-
-    <Pressable style={styles.backButton} onPress={voltar}>
-      <Text style={styles.backButtonText}>
-        Voltar
-      </Text>
-    </Pressable>
+      <Button title='Voltar'
+      onPress={voltar}
+      />
   </View>
+  </ImageBackground>
 );
 
 }

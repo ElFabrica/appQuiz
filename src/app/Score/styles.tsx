@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 export const styles = StyleSheet.create({
   container: {
@@ -8,8 +9,8 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   logo: {
-    width: 120, // w-30
-    height: 48, // h-12
+    width: RFValue(120), 
+    height: RFValue(48), 
     position: 'absolute',
     top: 20,
     right: 20,
@@ -21,7 +22,7 @@ export const styles = StyleSheet.create({
   congrats: {
     color: '#3B82F6', // text-blue-500
     fontWeight: '500',
-    fontSize: 40, // text-5xl ~40px
+    fontSize: RFValue(40), // text-5xl ~40px
     marginBottom: 12,
     lineHeight: 48,
     textAlign: 'center',
@@ -29,7 +30,7 @@ export const styles = StyleSheet.create({
   score: {
     color: '#3B82F6',
     fontWeight: '500',
-    fontSize: 24, // text-3xl
+    fontSize: RFValue(24), // text-3xl
     marginBottom: 20,
     lineHeight: 36,
     textAlign: 'center',
@@ -42,7 +43,7 @@ export const styles = StyleSheet.create({
   },
   backButtonText: {
     color: '#FFFFFF',
-    fontSize: 24, // text-2xl
+    fontSize: RFValue(24), // text-2xl
     textAlign: 'center',
     fontWeight: 'bold',
   },

@@ -11,8 +11,8 @@ type Props =TouchableOpacityProps & {
 export function Button({title,size = 20,disable, ...rest}: Props) {
 
     return(
-        <TouchableOpacity style={styles.container} {...rest} activeOpacity={0.8} >
-            <Text style={[styles.title, {fontSize:RFValue(size)}, disable && {opacity:0.4} ]}>{title}</Text>
+        <TouchableOpacity style={[styles.container, disable && {opacity:0.7} ]} {...rest} activeOpacity={0.8} >
+            <Text style={[styles.title, {fontSize:RFValue(size)}]}>{title}</Text>
         </TouchableOpacity>
     )
     
