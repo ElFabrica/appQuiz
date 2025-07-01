@@ -1,6 +1,6 @@
-import { View, Text, Pressable, ImageBackground } from 'react-native';
+import { View, Text, Pressable, ImageBackground, Image } from 'react-native';
 import React, { useEffect, useRef } from 'react';
-import { styles } from './styles'; 
+import { styles } from './styles';
 
 
 import LottieView from 'lottie-react-native';
@@ -8,12 +8,13 @@ import LottieView from 'lottie-react-native';
 import { useRoute, useIsFocused } from "@react-navigation/native";
 import { StackRoutesProps } from '@/routes/StackRoutes';
 import { Button } from '@/components/button';
+import { LogoAbsolut } from '@/components/LogoAbsolut';
 
-type RouteParams =  StackRoutesProps <"Score">
+type RouteParams = StackRoutesProps<"Score">
 
 
 export function Score({ navigation, route }: StackRoutesProps<"Score">) {
-  const { params } =  useRoute <RouteParams["route"]>()
+  const { params } = useRoute<RouteParams["route"]>()
 
   const timeoutRef = useRef(0); //Desativado
   const isFocused = useIsFocused(); // 🔥 Verifica se está na tela Score
@@ -36,35 +37,32 @@ export function Score({ navigation, route }: StackRoutesProps<"Score">) {
     }
     navigation.navigate("Home");
   }
-  
+
   return (
-    <ImageBackground source={require("../../assets/Background_with-logo.png")} 
-        resizeMode="cover"
-        style={{flex:1}}
-        >
-  <View style={styles.container}>
-    {/*<Image
-      source={require('../img/LOGO_AZUL.png')}
-      style={styles.logo}
-    />*/}
-    <LottieView
-      source={require('../../assets/animations/Finish2.json')}
-      autoPlay
-      loop
-      style={styles.animation}
-    />
-    <Text style={styles.congrats}>
-      Parabéns!!!
-    </Text>
-    <Text style={styles.score}>
-      Você concluiu seu formulário{"\n"}
-      Sua pontuação foi {params?.score} pontos
-    </Text>
-      <Button title='Voltar'
-      onPress={voltar}
-      />
-  </View>
-  </ImageBackground>
-);
+    <ImageBackground source={require("../../assets/Background_with-logo.png")}
+      resizeMode="cover"
+      style={{ flex: 1, paddingTop:26}}
+    >
+      <LogoAbsolut/>
+      <View style={styles.container}>
+        <LottieView
+          source={require('../../assets/animations/Finish2.json')}
+          autoPlay
+          loop
+          style={styles.animation}
+        />
+        <Text style={styles.congrats}>
+          Parabéns!!!
+        </Text>
+        <Text style={styles.score}>
+          Você concluiu seu formulário{"\n"}
+          Sua pontuação foi {params?.score} pontos
+        </Text>
+        <Button title='Voltar'
+          onPress={voltar}
+        />
+      </View>
+    </ImageBackground>
+  );
 
 }

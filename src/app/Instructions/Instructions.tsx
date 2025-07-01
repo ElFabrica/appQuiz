@@ -7,6 +7,8 @@ import Icon from "@react-native-vector-icons/fontawesome";
 import { StackRoutesProps } from "@/routes/StackRoutes";
 import { styles } from "./styles";
 import { Button } from "@/components/button";
+import { Logo } from "@/components/Logo";
+import { LogoAbsolut } from "@/components/LogoAbsolut";
 
 export function Instructions({ navigation }: StackRoutesProps<"Instructions">) {
   const [optionsModalVisible, setOptionsModalVisible] = useState(false);
@@ -49,9 +51,9 @@ export function Instructions({ navigation }: StackRoutesProps<"Instructions">) {
       resizeMode="cover"
       style={{ flex: 1 }}
     >
+      <LogoAbsolut/>
       <View style={styles.container}>
         {/* Ícone de configurações */}
-
         {/* Conteúdo principal */}
         <View style={styles.main}>
 

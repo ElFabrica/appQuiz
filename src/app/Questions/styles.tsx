@@ -5,12 +5,13 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+    paddingTop:RFValue(30)
   },
   progressContainer: {
     width: '100%',
     alignItems: 'center',
     marginBottom: 20,
-    marginTop: 32,
+    marginTop: 40,
     justifyContent: 'center',
   },
   progressText: {

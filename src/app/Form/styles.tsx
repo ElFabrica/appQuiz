@@ -69,5 +69,11 @@ export const styles = StyleSheet.create({
   buttonText: {
     color: '#FFFFFF',
     fontWeight: 'bold',
-  },
+  },header:{
+    flexDirection: "row", 
+    marginTop: 40, 
+    width: "100%", 
+    justifyContent: "space-between", 
+    paddingHorizontal: 10
+  }
 });

@@ -5,23 +5,16 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1
   },
-  logo: {
-    width: 120,  // w-30
-    height: 48,  // h-12
-    position: 'absolute',
-    top: 20,
-    right: 20,
-  },
+
   icon: {
-    marginTop: 40,
     marginHorizontal: 12,
   },
   main: {
     flex: 1,
     alignItems: 'center',
-    gap:16,
-    padding:8,
-    paddingHorizontal:20
+    gap: 16,
+    padding: 8,
+    paddingHorizontal: 20
   },
   title: {
     color: '#f81fb4', // text-blue-500
@@ -121,7 +114,14 @@ export const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: RFValue(16),
   },
-  content:{
-    gap:16
+  content: {
+    gap: 16
+  },
+  header: {
+    flexDirection: "row", 
+    marginTop: 40, 
+    width: "100%", 
+    justifyContent: "space-between", 
+    paddingHorizontal: 10
   }
 });

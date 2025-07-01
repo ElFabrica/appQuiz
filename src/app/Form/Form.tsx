@@ -17,6 +17,7 @@ import MaskInput from 'react-native-mask-input'
 import { StackRoutesProps } from "@/routes/StackRoutes";
 import { Button } from "@/components/button";
 import { Input } from "@/components/Input";
+import { LogoAbsolut } from "@/components/LogoAbsolut";
 
 export  function Form({ navigation }: StackRoutesProps<"Form">) {
   const [name, setName] = useState("");
@@ -60,16 +61,17 @@ export  function Form({ navigation }: StackRoutesProps<"Form">) {
   }
 
   return (
-    <ImageBackground source={require("../../assets/Background_without-logo.png")} 
+    <ImageBackground source={require("../../assets/Background_with-logo.png")} 
         resizeMode="cover"
         style={{flex:1}}
         >
-  
+  <LogoAbsolut/>
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ScrollView
         contentContainerStyle={styles.scrollContainer}
         keyboardShouldPersistTaps="handled"
       >
+        
         <View style={styles.animationContainer}>
           <LottieView
             source={require('../../assets/animations/Form.json')}

@@ -11,6 +11,7 @@ import { ChoiceStorge, choiceStorge } from "@/storge/Choices";
 import { StackRoutesProps } from "@/routes/StackRoutes";
 import { styles } from "./styles";
 import { Button } from "@/components/button";
+import { LogoAbsolut } from "@/components/LogoAbsolut";
 
 // ... (importações mantidas)
 
@@ -111,6 +112,7 @@ const handleExit = () => {
       style={{ flex: 1 }}
     >
       <View style={styles.container}>
+              <LogoAbsolut/>
         <View style={styles.progressContainer}>
           <Progress.Bar
             color="#46f23c"

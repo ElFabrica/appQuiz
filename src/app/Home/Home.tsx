@@ -1,4 +1,4 @@
-import { View, Text, Pressable, Modal, TextInput, Alert, ImageBackground } from "react-native";
+import { View, Text, Pressable, Modal, TextInput, Alert, ImageBackground, Image } from "react-native";
 import React, { useState } from "react";
 import tw from 'twrnc';
 import LottieView from 'lottie-react-native';
@@ -7,6 +7,7 @@ import Icon from "@react-native-vector-icons/fontawesome";
 import { StackRoutesProps } from "@/routes/StackRoutes";
 import { styles } from "./styles";
 import { Button } from "@/components/button";
+import { Logo } from "@/components/Logo";
 
 export function Home({ navigation }: StackRoutesProps<"Home">) {
   const [optionsModalVisible, setOptionsModalVisible] = useState(false);
@@ -51,9 +52,13 @@ export function Home({ navigation }: StackRoutesProps<"Home">) {
     >
       <View style={styles.container}>
         {/* Ícone de configurações */}
-        <Pressable onPress={() => setOptionsModalVisible(true)}>
-          <Icon name="gear" size={24} color="purple" style={styles.icon} />
-        </Pressable>
+        <View style={styles.header}>
+
+          <Pressable onPress={() => setOptionsModalVisible(true)}>
+            <Icon name="gear" size={24} color="purple" style={styles.icon} />
+          </Pressable>
+          <Logo />
+        </View>
 
         {/* Conteúdo principal */}
         <View style={styles.main}>
