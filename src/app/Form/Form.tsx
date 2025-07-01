@@ -52,7 +52,7 @@ export  function Form({ navigation }: StackRoutesProps<"Form">) {
       setPhone("")
 
       // Navega para a próxima tela
-      navigation.navigate("Questions");
+      navigation.navigate("Instructions");
     } catch (error) {
       console.error("Erro ao salvar dados no banco:", error);
       Alert.alert("Erro", "Não foi possível salvar os dados.");

@@ -8,7 +8,7 @@ import { StackRoutesProps } from "@/routes/StackRoutes";
 import { styles } from "./styles";
 import { Button } from "@/components/button";
 
-export function Home({ navigation }: StackRoutesProps<"Home">) {
+export function Instructions({ navigation }: StackRoutesProps<"Instructions">) {
   const [optionsModalVisible, setOptionsModalVisible] = useState(false);
   const [acessoModalVisible, setAcessoModalVisible] = useState(false);
   const [tasksModalVisible, setTasksModalVisible] = useState(false);
@@ -51,30 +51,34 @@ export function Home({ navigation }: StackRoutesProps<"Home">) {
     >
       <View style={styles.container}>
         {/* Ícone de configurações */}
-        <Pressable onPress={() => setOptionsModalVisible(true)}>
-          <Icon name="gear" size={24} color="purple" style={styles.icon} />
-        </Pressable>
 
         {/* Conteúdo principal */}
         <View style={styles.main}>
-          <LottieView
-            source={require('../../assets/animations/Estudant.json')}
-            autoPlay
-            loop
-            style={styles.animation}
-          />
-          <Text style={styles.title}>
-            Bem-vindo ao{"\n"}Questionário
-          </Text>
+
+          <Text style={styles.title}> 
+            Instruções 
+            </Text>
 
 
           <View style={styles.content}>
 
+            <View style={styles.instructionsBox}>
+              <Text style={styles.instructionsText}>
+                Cada pergunta do quiz tem apenas três alternativas e uma correta.
+              </Text>
+              <Text style={styles.instructionsText}>
+                Seu progresso será exibido no topo.
+              </Text>
+              <Text style={styles.instructionsText}>
+                Você verá a sua pontuação no final do quiz.
+              </Text>
+            </View>
+
             <View style={styles.buttonContainer}>
               <Button
                 size={22}
-                title="Iniciar"
-                onPress={() => navigation.navigate("Form")}
+                title="Começar"
+                onPress={() => navigation.navigate("Questions")}
               />
             </View>
           </View>

@@ -7,6 +7,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 16,
+    marginBottom: RFValue(80)
   },
   logo: {
     width: RFValue(120), 
@@ -20,7 +21,7 @@ export const styles = StyleSheet.create({
     height: '25%',
   },
   congrats: {
-    color: '#3B82F6', // text-blue-500
+    color: '#f81fb4', // text-blue-500
     fontWeight: '500',
     fontSize: RFValue(40), // text-5xl ~40px
     marginBottom: 12,
@@ -28,7 +29,7 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
   },
   score: {
-    color: '#3B82F6',
+    color: '#f81fb4',
     fontWeight: '500',
     fontSize: RFValue(24), // text-3xl
     marginBottom: 20,

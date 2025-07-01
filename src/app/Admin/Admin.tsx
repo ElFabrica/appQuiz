@@ -24,6 +24,20 @@ export function Admin() {
   const [Tasks, setTasks] = useState<taskStorge[]>([]);
   const [Choices, setChoices] = useState<choiceStorge[]>([]);
 
+  async function cleanAll(){
+
+  try {
+    await ChoiceStorge.clear()
+    await TaskStorge.clear()
+    setChoices ([])
+    setTasks ([])
+  } catch (error) {
+    console.log(error)
+    Alert.alert("Erro", "Não foi possível remover todos os itens.")
+  }
+  //Altera o status do item
+}
+
   //Baixar dados
   const DownloadData = async () => {
     setLoadingDownload(true);
@@ -122,15 +136,15 @@ export function Admin() {
   //Remover Pergunta
   async function handleTaskRemove(id: string) {
     try {
-      try {
+      
         const SelecteToDie = Choices.filter(item => item.task === id)
         for (let i = 1; i < SelecteToDie.length - 1; i++) {
           await handleChoicesRemove(SelecteToDie[i].id)
 
         }
-      } catch (error) {
+
         console.log("Algo de errado  em deletar as choices")
-      }
+      
 
       await TaskStorge.remove(id)
       console.log(Choices)
@@ -219,7 +233,6 @@ export function Admin() {
           ➕ Adicionar Prêmio
         </Text>
       </Pressable>
-
       {/* Lista de Prêmios */}
       <FlatList
         data={Tasks}
@@ -256,10 +269,18 @@ export function Admin() {
 
         }}
       />
-      <Button title='Baixar tasks'
+      <View style={{flexDirection:"row", gap:16 , justifyContent:"center", alignItems:"center" }}>
+      <View style={{flexDirection:"row", gap:16, width:"80%"}}>
+      <Button 
+      title={LoadingDownload === true? "Carregando...": "Baixar tasks"}
 
         onPress={DownloadData}
-        disabled={LoadingDownload} />
+        disabled={LoadingDownload}
+         />
+         </View>
+         <Trash color="red" size={35} style={{alignItems:"center", justifyContent:"center" }}
+         onPress={cleanAll}/>
+         </View>
     </View>
   );
 };

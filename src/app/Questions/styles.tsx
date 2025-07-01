@@ -25,7 +25,7 @@ export const styles = StyleSheet.create({
   },
   option: {
     borderWidth: 2,
-    borderColor: '#3B82F6', // border-blue-500 padrão
+    borderColor: '#f81fb4', // border-blue-500 padrão
     backgroundColor: "#FFFFF9",
     padding: 16,
     marginVertical: 8,
@@ -33,7 +33,7 @@ export const styles = StyleSheet.create({
   },
   optionCorrect: {
     backgroundColor: '#D1FAE5', // bg-green-100
-    borderColor: '#10B981', // border-green-500
+    borderColor: '#46f23c', // border-green-500
   },
   optionIncorrect: {
     backgroundColor: '#FECACA', // bg-red-100

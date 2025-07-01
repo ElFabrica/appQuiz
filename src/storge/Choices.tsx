@@ -38,10 +38,18 @@ async function add(newItem: choiceStorge): Promise<choiceStorge[]> {
 }
 //Remove um item do banco de dadods do dispositivo
 async function remove(id: string): Promise<void> {
-    const items = await get()
-    const updatedItems = items.filter((item) => item.id !== id)
-    save(updatedItems)
+  const items = await get();
+  const index = items.findIndex((item) => item.id === id);
+
+  if (index !== -1) {
+    const updatedItems = [
+      ...items.slice(0, index),
+      ...items.slice(index + 1),
+    ];
+    await save(updatedItems);
+  }
 }
+
 //Limpa os itens do banco de dados do dispositivo
 async function clear(): Promise<void> {
     try {

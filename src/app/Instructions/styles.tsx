@@ -18,6 +18,7 @@ export const styles = StyleSheet.create({
   },
   main: {
     flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
     gap:16,
     padding:8,
@@ -31,7 +32,7 @@ export const styles = StyleSheet.create({
   },
   animation: {
     width: '87%',
-    height: '32%',
+    height: '37%',
   },
   instructionsTitle: {
     color: '#3B82F6',
@@ -57,6 +58,7 @@ export const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     gap: 16, // Tailwind gap-4 ~= 16px
+    marginBottom: RFValue(80)
   },
   startButton: {
     backgroundColor: '#1E40AF',

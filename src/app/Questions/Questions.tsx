@@ -113,7 +113,7 @@ const handleExit = () => {
       <View style={styles.container}>
         <View style={styles.progressContainer}>
           <Progress.Bar
-            color="rgb(59 130 246)"
+            color="#46f23c"
             progress={(currentQuestionIndex + 1) / tasks.length}
             width={400}
             height={15}
