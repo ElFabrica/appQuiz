@@ -25,7 +25,6 @@ export const styles = StyleSheet.create({
     fontWeight: '500',
     fontSize: RFValue(40), // text-5xl ~40px
     marginBottom: 12,
-    lineHeight: 48,
     textAlign: 'center',
   },
   score: {
@@ -33,7 +32,6 @@ export const styles = StyleSheet.create({
     fontWeight: '500',
     fontSize: RFValue(24), // text-3xl
     marginBottom: 20,
-    lineHeight: 36,
     textAlign: 'center',
   },
   backButton: {
