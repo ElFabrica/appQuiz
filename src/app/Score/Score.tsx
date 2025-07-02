@@ -10,10 +10,10 @@ import { StackRoutesProps } from '@/routes/StackRoutes';
 import { Button } from '@/components/button';
 import { LogoAbsolut } from '@/components/LogoAbsolut';
 
-type RouteParams = StackRoutesProps<"Score">
+type RouteParams = StackRoutesProps<"score">
 
 
-export function Score({ navigation, route }: StackRoutesProps<"Score">) {
+export function Score({ navigation, route }: StackRoutesProps<"score">) {
   const { params } = useRoute<RouteParams["route"]>()
 
   const timeoutRef = useRef(0); //Desativado
@@ -35,7 +35,7 @@ export function Score({ navigation, route }: StackRoutesProps<"Score">) {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current); // Cancela o timer se clicar em "Voltar"
     }
-    navigation.navigate("Home");
+    navigation.navigate("home");
   }
 
   return (

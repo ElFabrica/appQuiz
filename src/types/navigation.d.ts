@@ -1,9 +1,9 @@
 export type RootStackParamList = {
-    Home: undefined
-    Form: undefined
-    Questions: undefined
-    Score: { score: number }
-    Users: undefined
+    home: undefined
+    form: undefined
+    questions: undefined
+    score: { score: number }
+    users: undefined
 }
 
 declare global {

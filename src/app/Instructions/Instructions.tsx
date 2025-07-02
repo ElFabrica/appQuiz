@@ -10,7 +10,7 @@ import { Button } from "@/components/button";
 import { Logo } from "@/components/Logo";
 import { LogoAbsolut } from "@/components/LogoAbsolut";
 
-export function Instructions({ navigation }: StackRoutesProps<"Instructions">) {
+export function Instructions({ navigation }: StackRoutesProps<"instructions">) {
   const [optionsModalVisible, setOptionsModalVisible] = useState(false);
   const [acessoModalVisible, setAcessoModalVisible] = useState(false);
   const [tasksModalVisible, setTasksModalVisible] = useState(false);
@@ -29,7 +29,7 @@ export function Instructions({ navigation }: StackRoutesProps<"Instructions">) {
     }
     setAcessoModalVisible(false);
     setOptionsModalVisible(false);
-    navigation.navigate("Users");
+    navigation.navigate("users");
     setChave("");
   }
 
@@ -42,7 +42,7 @@ export function Instructions({ navigation }: StackRoutesProps<"Instructions">) {
     }
     setTasksModalVisible(false);
     setOptionsModalVisible(false);
-    navigation.navigate("Admin");
+    navigation.navigate("admin");
     setTasksPassword("");
   }
 
@@ -79,7 +79,7 @@ export function Instructions({ navigation }: StackRoutesProps<"Instructions">) {
               <Button
                 size={22}
                 title="Começar"
-                onPress={() => navigation.navigate("Questions")}
+                onPress={() => navigation.navigate("questions")}
               />
             </View>
           </View>

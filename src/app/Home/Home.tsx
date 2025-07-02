@@ -9,7 +9,7 @@ import { styles } from "./styles";
 import { Button } from "@/components/button";
 import { Logo } from "@/components/Logo";
 
-export function Home({ navigation }: StackRoutesProps<"Home">) {
+export function Home({ navigation }: StackRoutesProps<"home">) {
   const [optionsModalVisible, setOptionsModalVisible] = useState(false);
   const [acessoModalVisible, setAcessoModalVisible] = useState(false);
   const [tasksModalVisible, setTasksModalVisible] = useState(false);
@@ -28,7 +28,7 @@ export function Home({ navigation }: StackRoutesProps<"Home">) {
     }
     setAcessoModalVisible(false);
     setOptionsModalVisible(false);
-    navigation.navigate("Users");
+    navigation.navigate("users");
     setChave("");
   }
 
@@ -41,7 +41,7 @@ export function Home({ navigation }: StackRoutesProps<"Home">) {
     }
     setTasksModalVisible(false);
     setOptionsModalVisible(false);
-    navigation.navigate("Admin");
+    navigation.navigate("admin");
     setTasksPassword("");
   }
 
@@ -78,7 +78,7 @@ export function Home({ navigation }: StackRoutesProps<"Home">) {
               <Button
                 size={22}
                 title="Iniciar"
-                onPress={() => navigation.navigate("Form")}
+                onPress={() => navigation.navigate("form")}
               />
             </View>
           </View>

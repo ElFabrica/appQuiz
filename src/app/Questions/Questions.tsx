@@ -15,7 +15,7 @@ import { LogoAbsolut } from "@/components/LogoAbsolut";
 
 // ... (importações mantidas)
 
-export function Questions({ navigation }: StackRoutesProps<"Questions">) {
+export function Questions({ navigation }: StackRoutesProps<"questions">) {
   const [tasks, setTasks] = useState<taskStorge[]>([]);
   const [choices, setChoices] = useState<choiceStorge[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -70,7 +70,7 @@ export function Questions({ navigation }: StackRoutesProps<"Questions">) {
 
   const handleNext = () => {
     if (currentQuestionIndex === tasks.length - 1) {
-      navigation.navigate("Score", { score: score });
+      navigation.navigate("score", { score: score });
     } else {
       if (!selectedOption) return;
       setCurrentQuestionIndex(currentQuestionIndex + 1);
@@ -100,7 +100,7 @@ export function Questions({ navigation }: StackRoutesProps<"Questions">) {
   }
 const handleExit = () => {
   setModalVisible(false);
-  navigation.navigate("Home");
+  navigation.navigate("home");
 };
 
   const currentTask = tasks[currentQuestionIndex];

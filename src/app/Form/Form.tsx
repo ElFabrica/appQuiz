@@ -25,7 +25,7 @@ import { Input } from "@/components/Input";
 import { LogoAbsolut } from "@/components/LogoAbsolut";
 import { RFValue } from "react-native-responsive-fontsize";
 
-export function Form({ navigation }: StackRoutesProps<"Form">) {
+export function Form({ navigation }: StackRoutesProps<"form">) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -60,7 +60,7 @@ export function Form({ navigation }: StackRoutesProps<"Form">) {
       setPhone("")
 
       // Navega para a próxima tela
-      navigation.navigate("Instructions");
+      navigation.navigate("instructions");
     } catch (error) {
       console.error("Erro ao salvar dados no banco:", error);
       Alert.alert("Erro", "Não foi possível salvar os dados.");

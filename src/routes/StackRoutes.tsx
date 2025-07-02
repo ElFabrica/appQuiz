@@ -10,13 +10,13 @@ import { Admin } from "@/app/Admin/Admin";
 import { Instructions } from "@/app/Instructions/Instructions";
 
 export type StackRoutesList = {
-    Home: undefined
-    Form: undefined
-    Questions: undefined
-    Score: { score: number }
-    Users: undefined
-    Admin: undefined
-    Instructions: undefined
+    home: undefined
+    form: undefined
+    questions: undefined
+    score: { score: number }
+    users: undefined
+    admin: undefined
+    instructions: undefined
 
 
 }
@@ -27,22 +27,22 @@ const Stack = createNativeStackNavigator<StackRoutesList>()
 
 export function StacksRoutes() {
     return (
-        <Stack.Navigator initialRouteName="Home" screenOptions={{
+        <Stack.Navigator initialRouteName="home" screenOptions={{
             headerShown: false
         }}>
-            <Stack.Screen name="Home" component={Home} />
-            <Stack.Screen name="Form" component={Form} options={{
+            <Stack.Screen name="home" component={Home} />
+            <Stack.Screen name="form" component={Form} options={{
                 headerShown: true
             }} />
-            <Stack.Screen name="Questions" component={Questions} />
-            <Stack.Screen name="Score" component={Score} />
-            <Stack.Screen name="Users" component={Users} options={{
+            <Stack.Screen name="questions" component={Questions} />
+            <Stack.Screen name="score" component={Score} />
+            <Stack.Screen name="users" component={Users} options={{
                 headerShown: true
             }} />
-            <Stack.Screen name="Instructions" component={Instructions} options={{
+            <Stack.Screen name="instructions" component={Instructions} options={{
                 headerShown: true
             }} />
-            <Stack.Screen name="Admin" component={Admin} options={{
+            <Stack.Screen name="admin" component={Admin} options={{
                 headerShown: true
             }} />
 
