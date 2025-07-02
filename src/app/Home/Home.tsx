@@ -7,7 +7,6 @@ import Icon from "@react-native-vector-icons/fontawesome";
 import { StackRoutesProps } from "@/routes/StackRoutes";
 import { styles } from "./styles";
 import { Button } from "@/components/button";
-import { Logo } from "@/components/Logo";
 
 export function Home({ navigation }: StackRoutesProps<"home">) {
   const [optionsModalVisible, setOptionsModalVisible] = useState(false);
