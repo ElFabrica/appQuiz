@@ -6,9 +6,6 @@ export const styles = StyleSheet.create({
     flex: 1
   },
 
-  icon: {
-    marginHorizontal: 12,
-  },
   main: {
     flex: 1,
     alignItems: 'center',
@@ -122,6 +119,6 @@ export const styles = StyleSheet.create({
     marginTop: 40, 
     width: "100%", 
     justifyContent: "space-between", 
-    paddingHorizontal: 10
+    paddingHorizontal: RFValue(16)
   }
 });
