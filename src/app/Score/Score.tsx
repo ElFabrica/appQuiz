@@ -9,6 +9,7 @@ import { useRoute, useIsFocused } from "@react-navigation/native";
 import { StackRoutesProps } from '@/routes/StackRoutes';
 import { Button } from '@/components/button';
 import { LogoAbsolut } from '@/components/LogoAbsolut';
+import { Logo } from '@/components/Logo';
 
 type RouteParams = StackRoutesProps<"score">
 
@@ -41,9 +42,12 @@ export function Score({ navigation, route }: StackRoutesProps<"score">) {
   return (
     <ImageBackground source={require("../../assets/Background_with-logo.png")}
       resizeMode="cover"
-      style={{ flex: 1, paddingTop:26}}
+      style={styles.background}
+      
     >
+      <LogoAbsolut/>
       <View style={styles.container}>
+        
         <LottieView
           source={require('../../assets/animations/Finish2.json')}
           autoPlay

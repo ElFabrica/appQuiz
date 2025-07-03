@@ -2,11 +2,17 @@ import { StyleSheet } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 export const styles = StyleSheet.create({
+
+  background:{
+    flex: 1, 
+    paddingTop:26,
+    paddingHorizontal:RFValue(15)
+
+  },
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 30,
     marginBottom: RFValue(80)
   },
   logo: {

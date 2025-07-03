@@ -52,6 +52,7 @@ export function Instructions({ navigation }: StackRoutesProps<"instructions">) {
       style={{ flex: 1 }}
     >
       <View style={styles.container}>
+        <LogoAbsolut/>
         {/* Ícone de configurações */}
         {/* Conteúdo principal */}
         <View style={styles.main}>

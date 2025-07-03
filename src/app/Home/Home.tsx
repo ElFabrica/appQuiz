@@ -7,6 +7,7 @@ import Icon from "@react-native-vector-icons/fontawesome";
 import { StackRoutesProps } from "@/routes/StackRoutes";
 import { styles } from "./styles";
 import { Button } from "@/components/button";
+import { Logo } from "@/components/Logo";
 
 export function Home({ navigation }: StackRoutesProps<"home">) {
   const [optionsModalVisible, setOptionsModalVisible] = useState(false);
@@ -56,6 +57,7 @@ export function Home({ navigation }: StackRoutesProps<"home">) {
           <Pressable onPress={() => setOptionsModalVisible(true)}>
             <Icon name="gear" size={24} color="purple" style={styles.icon} />
           </Pressable>
+          <Logo/>
         </View>
 
         {/* Conteúdo principal */}

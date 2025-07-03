@@ -3,7 +3,8 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+  paddingHorizontal: 24,
   },
   logo: {
     width: 120,  // w-30
@@ -22,7 +23,6 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     gap:16,
     padding:8,
-    paddingHorizontal:20
   },
   title: {
     color: '#f81fb4', // text-blue-500

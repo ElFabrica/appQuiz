@@ -71,11 +71,12 @@ export function Form({ navigation }: StackRoutesProps<"form">) {
       style={{ flex: 1 }}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        
         <ScrollView
           contentContainerStyle={styles.scrollContainer}
           keyboardShouldPersistTaps="handled"
         >
-
+<LogoAbsolut/>
           <View style={styles.animationContainer}>
             <LottieView
               source={require('../../assets/animations/Form.json')}

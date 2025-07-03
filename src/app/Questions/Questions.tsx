@@ -110,8 +110,10 @@ const handleExit = () => {
       source={require("../../assets/Background_with-logo.png")}
       resizeMode="cover"
       style={{ flex: 1 }}
+      
     >
       <View style={styles.container}>
+        <LogoAbsolut/>
         <View style={styles.progressContainer}>
           <Progress.Bar
             color="#46f23c"

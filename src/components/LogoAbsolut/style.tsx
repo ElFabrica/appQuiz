@@ -9,6 +9,7 @@ export const styles = StyleSheet.create({
     height: RFValue(30),  
     position:"absolute",
     top:RFValue(5),
-    right:RFValue(10),
+    right:RFValue(0),
+    
     }
 })
