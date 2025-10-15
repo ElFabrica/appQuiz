@@ -14,12 +14,9 @@ export function Admin() {
 
   const [titleTask, setTitleTask] = useState('');
   const [pointsTask, setPointsTask] = useState(0);
-  const [choiceRight, setChoiceRight] = useState(false)
-  const [taskOrder, setTaskOrder] = useState(0)
 
   const [choiceTitle, setChoiceTitle] = useState("")
   const [taskIdRefer, setTaskIdRefer] = useState("")
-  const [choiceOrder, setChoiceOrder] = useState(0)
 
   const [Tasks, setTasks] = useState<taskStorge[]>([]);
   const [Choices, setChoices] = useState<choiceStorge[]>([]);
@@ -102,7 +99,7 @@ export function Admin() {
       id: Math.random().toString(36).substring(2),
       title: titleTask,
       points: pointsTask,
-      order: taskOrder
+      order: 0
     }
     await TaskStorge.add(newItem)
     await handleTasks()
@@ -123,7 +120,7 @@ export function Admin() {
       title: choiceTitle,
       task: taskIdRefer,
       choiceRight: false,
-      order: choiceOrder
+      order: 0
 
     }
     await ChoiceStorge.add(newChoiceItem)

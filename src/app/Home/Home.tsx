@@ -97,7 +97,7 @@ export function Home({ navigation }: StackRoutesProps<"home">) {
               <Text style={styles.modalTitle}>Configurações</Text>
 
               <Pressable
-                style={tw`bg-purple-500 p-4 rounded-md mb-3`}
+                style={tw`bg-purple-500 p-4 rounded-md`}
                 onPress={() => {
                   setAcessoModalVisible(true);
                   setOptionsModalVisible(false);
@@ -117,6 +117,17 @@ export function Home({ navigation }: StackRoutesProps<"home">) {
               >
                 <Text style={tw`text-white font-bold text-center`}>
                   Tasks
+                </Text>
+              </Pressable>
+              <Pressable
+                style={tw`bg-purple-600 p-4 rounded-md`}
+                onPress={() => {
+                  setTasksModalVisible(true);
+                  setOptionsModalVisible(false);
+                }}
+              >
+                <Text style={tw`text-white font-bold text-center`}>
+                  Prêmios
                 </Text>
               </Pressable>
 

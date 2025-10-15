@@ -15,7 +15,7 @@ import { CircleDashed, CircleCheck } from "lucide-react-native";
 import validator from 'email-validator';
 import { styles } from "./styles";
 import LottieView from 'lottie-react-native';
-import { userStorge, UserStorge } from "@/storge/Users";
+import { UserStorge } from "@/storge/Users";
 import MaskInput from 'react-native-mask-input'
 import { StackRoutesProps } from "@/routes/StackRoutes";
 import { Button } from "@/components/button";
@@ -43,7 +43,6 @@ export function Form({ navigation }: StackRoutesProps<"form">) {
       return;
     }
     //Caso funcione tudo redondo
-    const id = Math.random().toString(30).substring(2, 20);  // Gerar ID único
     try {
       const newItem = {
         id: Math.random().toString(36).substring(2),
