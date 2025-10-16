@@ -9,7 +9,6 @@ import { useRoute, useIsFocused } from "@react-navigation/native";
 import { StackRoutesProps } from '@/routes/StackRoutes';
 import { Button } from '@/components/button';
 import { LogoAbsolut } from '@/components/LogoAbsolut';
-import { Logo } from '@/components/Logo';
 
 type RouteParams = StackRoutesProps<"score">
 
@@ -36,18 +35,18 @@ export function Score({ navigation, route }: StackRoutesProps<"score">) {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current); // Cancela o timer se clicar em "Voltar"
     }
-    navigation.navigate("home");
+    navigation.navigate("homeCarrocel");
   }
 
   return (
     <ImageBackground source={require("../../assets/Background_with-logo.png")}
       resizeMode="cover"
       style={styles.background}
-      
+
     >
-      <LogoAbsolut/>
+      <LogoAbsolut />
       <View style={styles.container}>
-        
+
         <LottieView
           source={require('../../assets/animations/Finish2.json')}
           autoPlay

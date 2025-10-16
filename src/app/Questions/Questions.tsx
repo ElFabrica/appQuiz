@@ -4,26 +4,29 @@ import React from "react";
 import tw from "twrnc";
 import * as Progress from 'react-native-progress';
 
-
-import { TaskStorge, taskStorge } from "@/storge/Tasks";
-import { ChoiceStorge, choiceStorge } from "@/storge/Choices";
+import { ITaskStorge } from "@/shared/interfaces/tasks-Storge";
+import { IChoiceStorge } from "@/shared/interfaces/Choice-Storage";
+import { TaskStorge } from "@/storge/Tasks";
+import { ChoiceStorge } from "@/storge/Choices";
 
 import { StackRoutesProps } from "@/routes/StackRoutes";
 import { styles } from "./styles";
 import { Button } from "@/components/button";
 import { LogoAbsolut } from "@/components/LogoAbsolut";
+import LottieView from "lottie-react-native";
 
 // ... (importações mantidas)
 
 export function Questions({ navigation }: StackRoutesProps<"questions">) {
-  const [tasks, setTasks] = useState<taskStorge[]>([]);
-  const [choices, setChoices] = useState<choiceStorge[]>([]);
+  const [tasks, setTasks] = useState<ITaskStorge[]>([]);
+  const [choices, setChoices] = useState<IChoiceStorge[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [currentOptions, setCurrentOptions] = useState<choiceStorge[]>([]); // NOVO estado
+  const [currentOptions, setCurrentOptions] = useState<IChoiceStorge[]>([]); // NOVO estado
   const [score, setScore] = useState(0);
-  const [selectedOption, setSelectedOption] = useState<choiceStorge>();
+  const [selectedOption, setSelectedOption] = useState<IChoiceStorge>();
   const [isCorrect, setIsCorrect] = useState<Boolean>();
   const [modalVisible, setModalVisible] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false)
 
   const shuffleArray = <T,>(array: T[]): T[] => {
     const shuffled = [...array];
@@ -68,6 +71,8 @@ export function Questions({ navigation }: StackRoutesProps<"questions">) {
     setCurrentOptions(shuffleArray(optionsForCurrent));
   }, [currentQuestionIndex, tasks, choices]); // só atualiza quando troca a pergunta ou carrega as listas
 
+
+
   const handleNext = () => {
     if (currentQuestionIndex === tasks.length - 1) {
       navigation.navigate("score", { score: score });
@@ -79,7 +84,11 @@ export function Questions({ navigation }: StackRoutesProps<"questions">) {
     }
   };
 
-  const handleOptionPress = (pressedOption: choiceStorge) => {
+
+  function sleep(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+  const handleOptionPress = async (pressedOption: IChoiceStorge) => {
     if (selectedOption) return;
     setSelectedOption(pressedOption);
 
@@ -87,7 +96,12 @@ export function Questions({ navigation }: StackRoutesProps<"questions">) {
     setIsCorrect(isAnswerCorrect);
 
     if (isAnswerCorrect) {
-      setScore((prevScore) => prevScore + tasks[currentQuestionIndex].points);
+      setScore((prevScore) =>
+        prevScore + tasks[currentQuestionIndex].points,
+      );
+      setShowConfetti(true)
+      await sleep(2500)
+      setShowConfetti(false)
     }
   };
 
@@ -98,10 +112,10 @@ export function Questions({ navigation }: StackRoutesProps<"questions">) {
       </View>
     );
   }
-const handleExit = () => {
-  setModalVisible(false);
-  navigation.navigate("home");
-};
+  const handleExit = () => {
+    setModalVisible(false);
+    navigation.navigate("home");
+  };
 
   const currentTask = tasks[currentQuestionIndex];
 
@@ -110,10 +124,10 @@ const handleExit = () => {
       source={require("../../assets/Background_with-logo.png")}
       resizeMode="cover"
       style={{ flex: 1 }}
-      
+
     >
       <View style={styles.container}>
-        <LogoAbsolut/>
+        <LogoAbsolut />
         <View style={styles.progressContainer}>
           <Progress.Bar
             color="#46f23c"
@@ -122,31 +136,35 @@ const handleExit = () => {
             height={15}
             borderColor="#ccc"
           />
-          <Text style={styles.progressText}>
-            Pergunta {currentQuestionIndex + 1} de {tasks.length}
-          </Text>
+          <View className="flex w-full items-end justify-end">
+            <Text style={styles.progressText}>
+              {currentQuestionIndex + 1} / {tasks.length}
+            </Text>
+          </View>
         </View>
 
         <Text style={styles.questionTitle}>
           {`${currentQuestionIndex + 1}. ${currentTask.title}`}
         </Text>
-
-        {currentOptions.map((option) => (
-          <Pressable
-            key={option.id}
-            style={[
-              styles.option,
-              selectedOption?.id === option.id && (isCorrect
-                ? styles.optionCorrect
-                : styles.optionIncorrect),
-            ]}
-            onPress={() => handleOptionPress(option)}
-          >
-            <Text style={styles.optionText}>{option.title}</Text>
-          </Pressable>
-        ))}
+        <View>
+          {currentOptions.map((option) => (
+            <Pressable
+              key={option.id}
+              style={[
+                styles.option,
+                selectedOption?.id === option.id && (isCorrect
+                  ? styles.optionCorrect
+                  : styles.optionIncorrect),
+              ]}
+              onPress={() => handleOptionPress(option)}
+            >
+              <Text style={styles.optionText}>{option.title}</Text>
+            </Pressable>
+          ))}
+        </View>
 
         <Button
+          style={{ marginTop: 20 }}
           title={currentQuestionIndex === tasks.length - 1 ? "Finalizar" : "Próximo"}
           size={22}
           onPress={handleNext}
@@ -190,6 +208,15 @@ const handleExit = () => {
           </View>
         </Modal>
       </View>
+      {showConfetti && (
+        <LottieView
+          source={require('@/assets/animations/Congregations.json')}
+          autoPlay
+          loop={false}
+          style={styles.lottie}
+        />
+      )
+      }
     </ImageBackground>
   );
 }

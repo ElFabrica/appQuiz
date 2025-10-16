@@ -8,15 +8,19 @@ import { Score } from "@/app/Score/Score";
 import { Users } from "@/app/Users/Users";
 import { Admin } from "@/app/Admin/Admin";
 import { Instructions } from "@/app/Instructions/Instructions";
+import { Sorteio } from "@/app/Sorteio";
+import { HomeCarrocel } from "@/app/HomeCarrocel/index.tsx";
 
 export type StackRoutesList = {
   home: undefined;
+  homeCarrocel: undefined;
   form: undefined;
   questions: undefined;
   score: { score: number };
   users: undefined;
   admin: undefined;
   instructions: undefined;
+  sorteio: undefined
 };
 
 export type StackRoutesProps<T extends keyof StackRoutesList> =
@@ -27,12 +31,23 @@ const Stack = createNativeStackNavigator<StackRoutesList>();
 export function StacksRoutes() {
   return (
     <Stack.Navigator
-      initialRouteName="home"
+      initialRouteName="homeCarrocel"
       screenOptions={{
         headerShown: false,
       }}
     >
-      <Stack.Screen name="home" component={Home} />
+      <Stack.Screen name="home"
+        component={Home}
+      />
+
+      <Stack.Screen
+        name="homeCarrocel"
+        component={HomeCarrocel}
+        options={{
+          headerShown: false,
+          title: "Home Carrocel",
+        }}
+      />
       <Stack.Screen
         name="form"
         component={Form}
@@ -41,8 +56,17 @@ export function StacksRoutes() {
           title: "Formulário",
         }}
       />
-      <Stack.Screen name="questions" component={Questions} />
-      <Stack.Screen name="score" component={Score} />
+
+      <Stack.Screen
+        name="questions"
+        component={Questions}
+      />
+
+      <Stack.Screen
+        name="score"
+        component={Score}
+      />
+
       <Stack.Screen
         name="users"
         component={Users}
@@ -61,6 +85,13 @@ export function StacksRoutes() {
       <Stack.Screen
         name="admin"
         component={Admin}
+        options={{
+          headerShown: true,
+        }}
+      />
+      <Stack.Screen
+        name="sorteio"
+        component={Sorteio}
         options={{
           headerShown: true,
         }}

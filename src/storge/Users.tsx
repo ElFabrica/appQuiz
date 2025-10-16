@@ -1,16 +1,11 @@
+import { IUserStorage } from "@/shared/interfaces/User-Storage";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ITEMS_STORGE_KEY = "@appQuiz:Users"
 
-export type userStorge = {
-    id: string,
-    name: string
-    phone: string
-    email: string
-    game?: string
-}
+
 //Faz uma busca de todos os itens dessa tabela
-async function get(): Promise<userStorge[]> {
+async function get(): Promise<IUserStorage[]> {
     try {
         const storge = await AsyncStorage.getItem(ITEMS_STORGE_KEY)
 
@@ -22,7 +17,7 @@ async function get(): Promise<userStorge[]> {
 }
 //Faz um filtro de todos os itens com base num parâmetro
 //Salva os itens dentro do banco de dados do dispositivo
-async function save(items: userStorge[]): Promise<void> {
+async function save(items: IUserStorage[]): Promise<void> {
     try {
         await AsyncStorage.setItem(ITEMS_STORGE_KEY, JSON.stringify(items))
     } catch (error) {
@@ -30,12 +25,12 @@ async function save(items: userStorge[]): Promise<void> {
     }
 }
 //Adiciona um item no banco de dados do dispositivo
-async function add(newItem: userStorge): Promise<userStorge[]> {
+async function add(newItem: IUserStorage): Promise<IUserStorage[]> {
     const items = await get()
     const updatedItems = [...items, newItem]
     await save(updatedItems)
 
-    return updatedItems 
+    return updatedItems
 
 }
 //Remove um item do banco de dadods do dispositivo

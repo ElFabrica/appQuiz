@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, Pressable, FlatList, Alert } from 'react-native';
 import tw from 'twrnc';
-import { TaskStorge, taskStorge } from '@/storge/Tasks';
+import { TaskStorge } from '@/storge/Tasks';
+import { ITaskStorge } from '@/shared/interfaces/tasks-Storge';
+import { IChoiceStorge } from '@/shared/interfaces/Choice-Storage';
 import { CircleDashed, CircleCheck, Icon, Trash } from "lucide-react-native";
-import { ChoiceStorge, choiceStorge } from '@/storge/Choices';
+import { ChoiceStorge } from '@/storge/Choices';
 import { Button } from '@/components/button';
 
 // 🎯 Interface para o prêmio
@@ -18,22 +20,22 @@ export function Admin() {
   const [choiceTitle, setChoiceTitle] = useState("")
   const [taskIdRefer, setTaskIdRefer] = useState("")
 
-  const [Tasks, setTasks] = useState<taskStorge[]>([]);
-  const [Choices, setChoices] = useState<choiceStorge[]>([]);
+  const [Tasks, setTasks] = useState<ITaskStorge[]>([]);
+  const [Choices, setChoices] = useState<IChoiceStorge[]>([]);
 
-  async function cleanAll(){
+  async function cleanAll() {
 
-  try {
-    await ChoiceStorge.clear()
-    await TaskStorge.clear()
-    setChoices ([])
-    setTasks ([])
-  } catch (error) {
-    console.log(error)
-    Alert.alert("Erro", "Não foi possível remover todos os itens.")
+    try {
+      await ChoiceStorge.clear()
+      await TaskStorge.clear()
+      setChoices([])
+      setTasks([])
+    } catch (error) {
+      console.log(error)
+      Alert.alert("Erro", "Não foi possível remover todos os itens.")
+    }
+    //Altera o status do item
   }
-  //Altera o status do item
-}
 
   //Baixar dados
   const DownloadData = async () => {
@@ -52,12 +54,12 @@ export function Admin() {
   const downloadTasks = async () => {
     const response = await fetch("https://nasago.bubbleapps.io/version-test/api/1.1/wf/tasks-nasa");
     const json = await response.json();
-    const tasks = json.response?.tasks as taskStorge[];
+    const tasks = json.response?.tasks as ITaskStorge[];
 
     if (!tasks) throw new Error("Não foi possível obter as tarefas.");
 
     for (const task of tasks) {
-      const newItem: taskStorge = {
+      const newItem: ITaskStorge = {
         id: task.id,
         title: task.title,
         points: task.points,
@@ -72,12 +74,12 @@ export function Admin() {
   const downloadChoices = async () => {
     const response = await fetch("https://nasago.bubbleapps.io/version-test/api/1.1/wf/choice-nasa");
     const json = await response.json();
-    const choices = json.response?.choice as choiceStorge[];
+    const choices = json.response?.choice as IChoiceStorge[];
 
     if (!choices) throw new Error("Não foi possível obter as escolhas.");
 
     for (const choice of choices) {
-      const newItem: choiceStorge = {
+      const newItem: IChoiceStorge = {
         id: choice.id,
         title: choice.title,
         task: choice.task,
@@ -133,15 +135,15 @@ export function Admin() {
   //Remover Pergunta
   async function handleTaskRemove(id: string) {
     try {
-      
-        const SelecteToDie = Choices.filter(item => item.task === id)
-        for (let i = 1; i < SelecteToDie.length - 1; i++) {
-          await handleChoicesRemove(SelecteToDie[i].id)
 
-        }
+      const SelecteToDie = Choices.filter(item => item.task === id)
+      for (let i = 1; i < SelecteToDie.length - 1; i++) {
+        await handleChoicesRemove(SelecteToDie[i].id)
 
-        console.log("Algo de errado  em deletar as choices")
-      
+      }
+
+      console.log("Algo de errado  em deletar as choices")
+
 
       await TaskStorge.remove(id)
       console.log(Choices)
@@ -266,18 +268,18 @@ export function Admin() {
 
         }}
       />
-      <View style={{flexDirection:"row", gap:16 , justifyContent:"center", alignItems:"center" }}>
-      <View style={{flexDirection:"row", gap:16, width:"80%"}}>
-      <Button 
-      title={LoadingDownload === true? "Carregando...": "Baixar tasks"}
+      <View style={{ flexDirection: "row", gap: 16, justifyContent: "center", alignItems: "center" }}>
+        <View style={{ flexDirection: "row", gap: 16, width: "80%" }}>
+          <Button
+            title={LoadingDownload === true ? "Carregando..." : "Baixar tasks"}
 
-        onPress={DownloadData}
-        disabled={LoadingDownload}
-         />
-         </View>
-         <Trash color="red" size={35} style={{alignItems:"center", justifyContent:"center" }}
-         onPress={cleanAll}/>
-         </View>
+            onPress={DownloadData}
+            disabled={LoadingDownload}
+          />
+        </View>
+        <Trash color="red" size={35} style={{ alignItems: "center", justifyContent: "center" }}
+          onPress={cleanAll} />
+      </View>
     </View>
   );
 };

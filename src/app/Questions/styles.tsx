@@ -1,11 +1,12 @@
+import { colors } from "@/shared/style/colors";
 import { StyleSheet } from "react-native";
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import { RFValue } from "react-native-responsive-fontsize";
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    paddingTop:RFValue(30)
+    paddingTop: RFValue(30),
   },
   progressContainer: {
     width: '100%',
@@ -17,16 +18,23 @@ export const styles = StyleSheet.create({
   progressText: {
     fontSize: 16,
     marginTop: 8,
-    color: '#374151', // text-gray-700
+    color: colors.gray[100],
     fontWeight: '600',
+    backgroundColor: colors["bg-Primary"],
+    borderRadius: 20,
+    paddingVertical: RFValue(7),
+    paddingHorizontal: RFValue(15)
   },
   questionTitle: {
-    fontSize: RFValue(24),
+    fontSize: RFValue(20),
     marginBottom: 16,
+    color: colors["text-Secondary"],
+    fontWeight: "500"
   },
   option: {
-    borderWidth: 2,
-    borderColor: '#f81fb4', // border-blue-500 padrão
+
+    borderWidth: 3,
+    borderColor: colors["Border-Secondary"], // border-blue-500 padrão
     backgroundColor: "#FFFFF9",
     padding: 16,
     marginVertical: 8,
@@ -117,4 +125,13 @@ export const styles = StyleSheet.create({
     bottom: 20,
     right: 20,
   },
+  lottie: {
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    top: 0,
+    left: 0,
+    zIndex: 20,
+
+  }
 });

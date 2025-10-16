@@ -5,9 +5,12 @@ import { StyleSheet } from "react-native";
 
 type Props = TextInputProps & {
     place: string
+
 }
 
-export function Input({ place, ...rest }: Props) {
+export function Input({ place,
+    ...rest
+}: Props) {
     const [isFocused, setIsFocused] = useState(false);
     const focus = useRef<TextInput>(null)
 
@@ -19,10 +22,8 @@ export function Input({ place, ...rest }: Props) {
 
 
     return (
-        <View style={styles.wrapper}>
-            <TextInput style={[
-                styles.input
-            ]}
+        <View className="w-full">
+            <TextInput style={styles.input}
                 placeholder={place}
                 onFocus={handleFocus}
                 {...rest}

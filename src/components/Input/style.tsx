@@ -1,24 +1,22 @@
+import { colors } from "@/shared/style/colors";
 import { StyleSheet } from "react-native";
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import { RFValue } from "react-native-responsive-fontsize";
 
 export const styles = StyleSheet.create({
-      wrapper: {
+  input: {
+    color: "#333333",
+    fontSize: RFValue(22),
+    backgroundColor: "#FFFFFF",
+    fontWeight: 600,
+    borderWidth: 3,
+    borderRadius: 8,
+    borderColor: colors["Border-Primary"],
+    padding: 16,
     width: "100%",
-  },
-    input: {
-        color:"#333333",
-        fontSize: RFValue(22),
-        backgroundColor: "#FFFFFF",
-        fontWeight: 600,
-        borderWidth: 2,
-        borderRadius: 8,
-        borderColor:"#46f23c",
-        padding: 16,
-        width: "100%",
-        minHeight: "auto",
+    minHeight: "auto",
 
-    },
-    inputFocused: {
+  },
+  inputFocused: {
     borderColor: "#A26201"
-    }
+  }
 })

@@ -69,7 +69,10 @@ export function Home({ navigation }: StackRoutesProps<"home">) {
             style={styles.animation}
           />
           <Text style={styles.title}>
-            Bem-vindo ao{"\n"}Questionário
+            Bem-vindo ao{"\n"}Quiz
+          </Text>
+          <Text style={styles.subTitle}>
+            Está pronto para o desafio ?
           </Text>
 
 
@@ -122,6 +125,7 @@ export function Home({ navigation }: StackRoutesProps<"home">) {
               <Pressable
                 style={tw`bg-purple-600 p-4 rounded-md`}
                 onPress={() => {
+                  navigation.navigate("sorteio")
                   setTasksModalVisible(true);
                   setOptionsModalVisible(false);
                 }}

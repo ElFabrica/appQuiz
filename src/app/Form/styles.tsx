@@ -1,3 +1,4 @@
+import { colors } from "@/shared/style/colors";
 import { StyleSheet } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
@@ -17,18 +18,18 @@ export const styles = StyleSheet.create({
   Footer: {
     alignItems: 'center',
     marginTop: 16,
-    justifyContent:"center",
-    width:"100%"
-  
-  },content:{
-    gap:16
+    justifyContent: "center",
+    width: "100%"
+
+  }, content: {
+    gap: 16
   },
   animation: {
     width: '50%',
     height: 160,
   },
   title: {
-    color: '#f81fb4', // text-blue-500
+    color: colors.gray[100],
     fontSize: RFValue(32),
     fontWeight: 'bold',
     textAlign: 'center',
@@ -41,16 +42,16 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   input: {
-        color:"#333333",
-        fontSize: RFValue(22),
-        backgroundColor: "#FFFFFF",
-        fontWeight: 600,
-        borderWidth: 2,
-        borderRadius: 8,
-        borderColor:"#46f23c",
-        padding: 16,
-        width: "100%",
-        minHeight: "auto",
+    color: "#333333",
+    fontSize: RFValue(22),
+    backgroundColor: "#FFFFFF",
+    fontWeight: 600,
+    borderWidth: 3,
+    borderRadius: 8,
+    borderColor: colors["Border-Primary"],
+    padding: 16,
+    width: "100%",
+    minHeight: "auto",
   },
   button: {
     padding: 16,
@@ -69,25 +70,25 @@ export const styles = StyleSheet.create({
   buttonText: {
     color: '#FFFFFF',
     fontWeight: 'bold',
-  },header:{
-    flexDirection: "row", 
-    marginTop: 40, 
-    width: "100%", 
-    justifyContent: "space-between", 
+  }, header: {
+    flexDirection: "row",
+    marginTop: 40,
+    width: "100%",
+    justifyContent: "space-between",
     paddingHorizontal: 10
   },
   checkboxContainer: {
-  flexDirection: "row",
-  alignItems: "flex-start",
-},
-checkboxIcon: {
-  fontSize: RFValue(20),
-  marginRight: 10,
-  marginTop: 2,
-},
-checkboxText: {
-  flex: 1,
-  fontSize: RFValue(14),
-  color: "#333333",
-}
+    flexDirection: "row",
+    alignItems: "flex-start",
+  },
+  checkboxIcon: {
+    fontSize: RFValue(20),
+    marginRight: 10,
+    marginTop: 2,
+  },
+  checkboxText: {
+    flex: 1,
+    fontSize: RFValue(14),
+    color: "#333333",
+  }
 });

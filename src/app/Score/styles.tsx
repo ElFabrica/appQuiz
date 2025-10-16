@@ -1,12 +1,13 @@
+import { colors } from "@/shared/style/colors";
 import { StyleSheet } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 export const styles = StyleSheet.create({
 
-  background:{
-    flex: 1, 
-    paddingTop:26,
-    paddingHorizontal:RFValue(15)
+  background: {
+    flex: 1,
+    paddingTop: 26,
+    paddingHorizontal: RFValue(15)
 
   },
   container: {
@@ -16,8 +17,8 @@ export const styles = StyleSheet.create({
     marginBottom: RFValue(80)
   },
   logo: {
-    width: RFValue(120), 
-    height: RFValue(48), 
+    width: RFValue(120),
+    height: RFValue(48),
     position: 'absolute',
     top: 20,
     right: 20,
@@ -27,14 +28,14 @@ export const styles = StyleSheet.create({
     height: '25%',
   },
   congrats: {
-    color: '#f81fb4', // text-blue-500
+    color: colors["text-Primary"], // text-blue-500
     fontWeight: '500',
     fontSize: RFValue(40), // text-5xl ~40px
     marginBottom: 12,
     textAlign: 'center',
   },
   score: {
-    color: '#f81fb4',
+    color: colors["text-Secondary"],
     fontWeight: '500',
     fontSize: RFValue(24), // text-3xl
     marginBottom: 20,

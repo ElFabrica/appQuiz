@@ -22,6 +22,7 @@ import { Button } from "@/components/button";
 import { Input } from "@/components/Input";
 import { LogoAbsolut } from "@/components/LogoAbsolut";
 import { RFValue } from "react-native-responsive-fontsize";
+import { colors } from "@/shared/style/colors";
 
 export function Form({ navigation }: StackRoutesProps<"form">) {
   const [name, setName] = useState("");
@@ -125,11 +126,15 @@ export function Form({ navigation }: StackRoutesProps<"form">) {
                 style={styles.inputContainer}
                 onPress={() => setIsConfirmed(!isConfirmed)}
               >
-                <View className="p-3 flex-row bg-slate-500/70 rounded-lg">
-                  <Text style={styles.checkboxIcon}>
-                    {isConfirmed ? <CircleCheck color={"#333333"} size={RFValue(24)} /> : <CircleDashed color={"#333333"} size={RFValue(24)} />}
-                  </Text>
-                  <Text className="text-base text-white">
+                <View className="p-4 px-6 bg-bg-Therthiary rounded-2xl gap-1">
+                  <View className="flex flex-row gap-2 items-center">
+                    {isConfirmed ?
+                      <CircleCheck color={colors.White} size={RFValue(20)} />
+                      :
+                      <CircleDashed color={colors.White} size={RFValue(20)} />}
+                    <Text style={{ fontSize: RFValue(14) }} className="text-white">Termos</Text>
+                  </View>
+                  <Text style={{ fontSize: RFValue(12) }} className="text-white">
                     Ao preencher com seus dados, você autoriza o uso das informações fornecidas
                     para que possamos entrar em contato e melhorar nossos serviços,
                     sempre respeitando a sua privacidade.
