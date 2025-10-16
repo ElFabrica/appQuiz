@@ -55,9 +55,9 @@ export function Home({ navigation }: StackRoutesProps<"home">) {
         <View style={styles.header}>
 
           <Pressable onPress={() => setOptionsModalVisible(true)}>
-            <Icon name="gear" size={24} color="purple"  />
+            <Icon name="gear" size={24} color="purple" />
           </Pressable>
-          <Logo/>
+          <Logo />
         </View>
 
         {/* Conteúdo principal */}
@@ -73,9 +73,9 @@ export function Home({ navigation }: StackRoutesProps<"home">) {
           </Text>
 
 
-          <View style={styles.content}>
+          <View className="w-full px-6 mt-6">
 
-            <View style={styles.buttonContainer}>
+            <View className="w-full" >
               <Button
                 size={22}
                 title="Iniciar"
@@ -217,6 +217,6 @@ export function Home({ navigation }: StackRoutesProps<"home">) {
           </View>
         </Modal>
       </View>
-    </ImageBackground>
+    </ImageBackground >
   );
 }
