@@ -1,14 +1,11 @@
-import { View, Text, Pressable, Modal, TextInput, Alert, ImageBackground } from "react-native";
+import { View, Text, Pressable, Modal, TextInput, Alert, ImageBackground, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
-import tw from 'twrnc';
-import LottieView from 'lottie-react-native';
-import Icon from "@react-native-vector-icons/fontawesome";
-
+import { MaterialIcons } from "@expo/vector-icons"
 import { StackRoutesProps } from "@/routes/StackRoutes";
 import { styles } from "./styles";
 import { Button } from "@/components/button";
+import { RFValue } from "react-native-responsive-fontsize";
 import { Logo } from "@/components/Logo";
-import { LogoAbsolut } from "@/components/LogoAbsolut";
 
 export function Instructions({ navigation }: StackRoutesProps<"instructions">) {
   return (
@@ -17,9 +14,12 @@ export function Instructions({ navigation }: StackRoutesProps<"instructions">) {
       style={{ flex: 1 }}
     >
       <View style={styles.container}>
-        <LogoAbsolut />
-        {/* Ícone de configurações */}
-        {/* Conteúdo principal */}
+        <View className="flex-row justify-between py-4 mt-4 items-center">
+          <TouchableOpacity activeOpacity={0.8} onPress={navigation.goBack}>
+            <MaterialIcons name="arrow-back" size={RFValue(22)} />
+          </TouchableOpacity>
+          <Logo />
+        </View>
         <View style={styles.main}>
 
           <Text style={styles.title}>

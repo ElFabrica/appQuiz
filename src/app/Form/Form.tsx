@@ -7,8 +7,10 @@ import {
   ScrollView,
   TouchableWithoutFeedback,
   Pressable,
-  Keyboard
+  Keyboard,
+  TouchableOpacity
 } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons"
 
 import { CircleDashed, CircleCheck } from "lucide-react-native";
 
@@ -78,7 +80,12 @@ export function Form({ navigation }: StackRoutesProps<"form">) {
             contentContainerStyle={styles.scrollContainer}
             keyboardShouldPersistTaps="handled"
           >
-            <LogoAbsolut />
+            <View className="flex-row justify-between">
+              <TouchableOpacity activeOpacity={0.7} onPress={navigation.goBack}>
+                <MaterialIcons name="arrow-back" size={24} />
+              </TouchableOpacity>
+              <LogoAbsolut />
+            </View>
             <View style={styles.animationContainer}>
               <LottieView
                 source={require('../../assets/animations/Form.json')}
@@ -132,7 +139,7 @@ export function Form({ navigation }: StackRoutesProps<"form">) {
                       <CircleCheck color={colors.White} size={RFValue(20)} />
                       :
                       <CircleDashed color={colors.White} size={RFValue(20)} />}
-                    <Text style={{ fontSize: RFValue(14) }} className="text-white">Termos</Text>
+                    <Text style={{ fontSize: RFValue(14) }} className="text-white font-bold">Termos</Text>
                   </View>
                   <Text style={{ fontSize: RFValue(12) }} className="text-white">
                     Ao preencher com seus dados, você autoriza o uso das informações fornecidas

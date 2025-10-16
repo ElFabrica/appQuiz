@@ -9,7 +9,7 @@ import { Users } from "@/app/Users/Users";
 import { Admin } from "@/app/Admin/Admin";
 import { Instructions } from "@/app/Instructions/Instructions";
 import { Sorteio } from "@/app/Sorteio";
-import { HomeCarrocel } from "@/app/HomeCarrocel/index.tsx";
+import { HomeCarrocel } from "@/app/HomeCarrocel/index";
 
 export type StackRoutesList = {
   home: undefined;
@@ -52,8 +52,9 @@ export function StacksRoutes() {
         name="form"
         component={Form}
         options={{
-          headerShown: true,
+          headerShown: false,
           title: "Formulário",
+
         }}
       />
 
@@ -78,7 +79,7 @@ export function StacksRoutes() {
         name="instructions"
         component={Instructions}
         options={{
-          headerShown: true,
+          headerShown: false,
           title: "Regras",
         }}
       />

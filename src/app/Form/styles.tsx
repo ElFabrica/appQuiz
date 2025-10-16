@@ -47,7 +47,7 @@ export const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     fontWeight: 600,
     borderWidth: 3,
-    borderRadius: 8,
+    borderRadius: 16,
     borderColor: colors["Border-Primary"],
     padding: 16,
     width: "100%",
