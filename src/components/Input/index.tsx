@@ -1,28 +1,35 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { TextInput, TextInputProps, View } from "react-native";
-import {styles} from "./style"
+import { styles } from "./style"
 import { StyleSheet } from "react-native";
 
 type Props = TextInputProps & {
-        place: string
+    place: string
 }
 
-export function Input({place, ...rest}: Props) {
-      const [isFocused, setIsFocused] = useState(false);
+export function Input({ place, ...rest }: Props) {
+    const [isFocused, setIsFocused] = useState(false);
+    const focus = useRef<TextInput>(null)
 
-    return(
-            <View style={styles.wrapper}>
-        <TextInput style={[
-            styles.input
+    function handleFocus() {
+        if (focus.current) {
+            setIsFocused(focus.current.isFocused())
+        }
+    }
+
+
+    return (
+        <View style={styles.wrapper}>
+            <TextInput style={[
+                styles.input
             ]}
-        placeholder={place} 
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)} 
-           {...rest}
-           >
-         
-        </TextInput>
+                placeholder={place}
+                onFocus={handleFocus}
+                {...rest}
+            >
+
+            </TextInput>
         </View>
     )
-    
+
 }

@@ -69,83 +69,85 @@ export function Form({ navigation }: StackRoutesProps<"form">) {
       resizeMode="cover"
       style={{ flex: 1 }}
     >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        
-        <ScrollView
-          contentContainerStyle={styles.scrollContainer}
-          keyboardShouldPersistTaps="handled"
-        >
-<LogoAbsolut/>
-          <View style={styles.animationContainer}>
-            <LottieView
-              source={require('../../assets/animations/Form.json')}
-              autoPlay
-              loop
-              style={styles.animation}
-            />
-          </View>
+      <View className=" flex-1 py-5">
+        <TouchableWithoutFeedback
+          onPress={Keyboard.dismiss}>
 
-          <Text style={styles.title}>
-            Cadastro
-          </Text>
-
-          <View style={styles.content}>
-            {/* NOME */}
-            <View style={styles.inputContainer}>
-              <Text style={styles.inputLabel}>Nome</Text>
-              <Input place="John"
-                value={name}
-                onChangeText={setName}
-              />
-            </View>
-            {/* EMAIL */}
-            <View style={styles.inputContainer}>
-              <Text style={styles.inputLabel}>Email</Text>
-              <Input place="seu@email.com"
-                value={email}
-                onChangeText={setEmail}
-              />
-            </View>
-
-            {/* TELEFONE */}
-            <View style={styles.inputContainer}>
-              <Text style={styles.inputLabel}>Telefone</Text>
-              <MaskInput
-                value={phone}
-                onChangeText={setPhone}
-                mask={['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
-                keyboardType="numeric"
-                placeholder="(00) 00000-0000"
-                style={styles.input}
-              />
-            </View>
-          <Pressable
-            style={styles.inputContainer}
-            onPress={() => setIsConfirmed(!isConfirmed)}
+          <ScrollView
+            contentContainerStyle={styles.scrollContainer}
+            keyboardShouldPersistTaps="handled"
           >
-            <View style={styles.checkboxContainer}>
-              <Text style={styles.checkboxIcon}>
-                {isConfirmed ? <CircleCheck color={"#333333"} size={RFValue(30) }/> : <CircleDashed color={"#333333"} size={RFValue(30) }/>}
-              </Text>
-              <Text style={styles.checkboxText}>
-                Ao preencher com seus dados, você autoriza o uso das informações fornecidas
-                para que possamos entrar em contato e melhorar nossos serviços,
-                sempre respeitando a sua privacidade.
-              </Text>
-            </View>
-          </Pressable>
-          </View>
-          {/* BOTÃO */}
-          <View style={styles.Footer}>
-            <Button title="Começar"
-              onPress={onSubmit} 
-              disable={!isConfirmed}
+            <LogoAbsolut />
+            <View style={styles.animationContainer}>
+              <LottieView
+                source={require('../../assets/animations/Form.json')}
+                autoPlay
+                loop
+                style={styles.animation}
               />
-              
-          </View>
-        </ScrollView>
-      </TouchableWithoutFeedback>
+            </View>
 
+            <Text style={styles.title}>
+              Cadastro
+            </Text>
+
+            <View style={styles.content}>
+              {/* NOME */}
+              <View style={styles.inputContainer}>
+                <Text style={styles.inputLabel}>Nome</Text>
+                <Input place="John"
+                  value={name}
+                  onChangeText={setName}
+                />
+              </View>
+              {/* EMAIL */}
+              <View style={styles.inputContainer}>
+                <Text style={styles.inputLabel}>Email</Text>
+                <Input place="seu@email.com"
+                  value={email}
+                  onChangeText={setEmail}
+                />
+              </View>
+
+              {/* TELEFONE */}
+              <View style={styles.inputContainer}>
+                <Text style={styles.inputLabel}>Telefone</Text>
+                <MaskInput
+                  value={phone}
+                  onChangeText={setPhone}
+                  mask={['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+                  keyboardType="numeric"
+                  placeholder="(00) 00000-0000"
+                  style={styles.input}
+                />
+              </View>
+              <Pressable
+                style={styles.inputContainer}
+                onPress={() => setIsConfirmed(!isConfirmed)}
+              >
+                <View className="p-3 flex-row bg-slate-500/70 rounded-lg">
+                  <Text style={styles.checkboxIcon}>
+                    {isConfirmed ? <CircleCheck color={"#333333"} size={RFValue(24)} /> : <CircleDashed color={"#333333"} size={RFValue(24)} />}
+                  </Text>
+                  <Text className="text-base text-white">
+                    Ao preencher com seus dados, você autoriza o uso das informações fornecidas
+                    para que possamos entrar em contato e melhorar nossos serviços,
+                    sempre respeitando a sua privacidade.
+                  </Text>
+                </View>
+              </Pressable>
+            </View>
+            {/* BOTÃO */}
+            <View style={styles.Footer}>
+              <Button title="Começar"
+                onPress={onSubmit}
+                disable={!isConfirmed}
+              />
+
+            </View>
+          </ScrollView>
+        </TouchableWithoutFeedback>
+      </View>
     </ImageBackground>
   )
 }
