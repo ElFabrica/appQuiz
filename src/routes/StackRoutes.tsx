@@ -31,12 +31,13 @@ const Stack = createNativeStackNavigator<StackRoutesList>();
 export function StacksRoutes() {
   return (
     <Stack.Navigator
-      initialRouteName="homeCarrocel"
+      initialRouteName="home"
       screenOptions={{
         headerShown: false,
       }}
     >
-      <Stack.Screen name="home"
+      <Stack.Screen
+        name="home"
         component={Home}
       />
 

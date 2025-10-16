@@ -6,7 +6,6 @@ import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel"
 
 import { StackRoutesProps } from "@/routes/StackRoutes";
 import { styles } from "./styles";
-import { Button } from "@/components/button";
 import { Logo } from "@/components/Logo";
 import { useSharedValue } from "react-native-reanimated";
 
@@ -82,10 +81,10 @@ export function HomeCarrocel({ navigation }: StackRoutesProps<"homeCarrocel">) {
           ref={ref}
           width={width}
           height={height}
-          data={data}
           snapEnabled={false}
           autoPlayInterval={1000}
           autoPlay
+          data={data}
           onProgressChange={progress}
           style={{ flex: 1, alignItems: "center" }}
           renderItem={({ item }) => (

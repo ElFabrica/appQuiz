@@ -120,12 +120,7 @@ export function Questions({ navigation }: StackRoutesProps<"questions">) {
   const currentTask = tasks[currentQuestionIndex];
 
   return (
-    <ImageBackground
-      source={require("../../assets/Background_with-logo.png")}
-      resizeMode="cover"
-      style={{ flex: 1 }}
-
-    >
+    <View className="flex-1">
       <View style={styles.container}>
         <LogoAbsolut />
         <View style={styles.progressContainer}>
@@ -136,16 +131,20 @@ export function Questions({ navigation }: StackRoutesProps<"questions">) {
             height={15}
             borderColor="#ccc"
           />
-          <View className="flex w-full items-end justify-end">
-            <Text style={styles.progressText}>
-              {currentQuestionIndex + 1} / {tasks.length}
-            </Text>
-          </View>
+
         </View>
 
-        <Text style={styles.questionTitle}>
-          {`${currentQuestionIndex + 1}. ${currentTask.title}`}
-        </Text>
+        <View >
+          <View className="flex items-start">
+            <Text className="text-3xl bg-text-Primary rounded-2xl px-8 font-medium justify-center py-3 text-white text-center">
+              {`${currentQuestionIndex + 1}`}
+
+            </Text>
+          </View>
+          <Text style={styles.questionTitle}>
+            {`${currentTask.title}`}
+          </Text>
+        </View>
         <View>
           {currentOptions.map((option) => (
             <Pressable
@@ -168,7 +167,7 @@ export function Questions({ navigation }: StackRoutesProps<"questions">) {
           title={currentQuestionIndex === tasks.length - 1 ? "Finalizar" : "Próximo"}
           size={22}
           onPress={handleNext}
-          disable={!selectedOption}
+          disable={!selectedOption || showConfetti == true}
         />
 
         <Pressable
@@ -177,6 +176,12 @@ export function Questions({ navigation }: StackRoutesProps<"questions">) {
         >
           <Text style={styles.exitButtonText}>Sair</Text>
         </Pressable>
+
+        <View className="flex w-full items-center mb-2 flex-1 justify-end">
+          <Text style={styles.progressText}>
+            {currentQuestionIndex + 1} / {tasks.length}
+          </Text>
+        </View>
 
         <Modal
           transparent={true}
@@ -208,15 +213,16 @@ export function Questions({ navigation }: StackRoutesProps<"questions">) {
           </View>
         </Modal>
       </View>
-      {showConfetti && (
-        <LottieView
-          source={require('@/assets/animations/Congregations.json')}
-          autoPlay
-          loop={false}
-          style={styles.lottie}
-        />
-      )
+      {
+        showConfetti && (
+          <LottieView
+            source={require('@/assets/animations/Congregations.json')}
+            autoPlay
+            loop={false}
+            style={styles.lottie}
+          />
+        )
       }
-    </ImageBackground>
+    </View >
   );
 }

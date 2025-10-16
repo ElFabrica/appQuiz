@@ -25,6 +25,8 @@ import { Input } from "@/components/Input";
 import { LogoAbsolut } from "@/components/LogoAbsolut";
 import { RFValue } from "react-native-responsive-fontsize";
 import { colors } from "@/shared/style/colors";
+import { useQuizContext } from "@/contexts/useUser.context";
+import { IUserStorage } from "@/shared/interfaces/User-Storage";
 
 export function Form({ navigation }: StackRoutesProps<"form">) {
   const [name, setName] = useState("");
@@ -32,7 +34,7 @@ export function Form({ navigation }: StackRoutesProps<"form">) {
   const [phone, setPhone] = useState("");
   const [isConfirmed, setIsConfirmed] = useState(false);
 
-
+  const { handleSelectUser } = useQuizContext()
   //Função que salva o formulário no storge do smartphone
   async function onSubmit() {
     //Valida de algum dos dados estão vazios
@@ -51,9 +53,12 @@ export function Form({ navigation }: StackRoutesProps<"form">) {
         id: Math.random().toString(36).substring(2),
         name,
         email,
-        phone
+        phone,
+        sorteio: false
       }
       await UserStorge.add(newItem)
+      console.log(newItem)
+      handleSelectUser(newItem)
       // Limpeza do formulário
       setName("");
       setEmail("");
@@ -68,98 +73,93 @@ export function Form({ navigation }: StackRoutesProps<"form">) {
   }
 
   return (
-    <ImageBackground source={require("../../assets/Background_with-logo.png")}
-      resizeMode="cover"
-      style={{ flex: 1 }}
-    >
-      <View className=" flex-1 py-5">
-        <TouchableWithoutFeedback
-          onPress={Keyboard.dismiss}>
+    <View className=" flex-1 py-5">
+      <TouchableWithoutFeedback
+        onPress={Keyboard.dismiss}>
 
-          <ScrollView
-            contentContainerStyle={styles.scrollContainer}
-            keyboardShouldPersistTaps="handled"
-          >
-            <View className="flex-row justify-between">
-              <TouchableOpacity activeOpacity={0.7} onPress={navigation.goBack}>
-                <MaterialIcons name="arrow-back" size={24} />
-              </TouchableOpacity>
-              <LogoAbsolut />
+        <ScrollView
+          contentContainerStyle={styles.scrollContainer}
+          keyboardShouldPersistTaps="handled"
+        >
+          <View className="flex-row justify-between">
+            <TouchableOpacity activeOpacity={0.7} onPress={navigation.goBack}>
+              <MaterialIcons name="arrow-back" size={24} />
+            </TouchableOpacity>
+            <LogoAbsolut />
+          </View>
+          <View style={styles.animationContainer}>
+            <LottieView
+              source={require('../../assets/animations/Form.json')}
+              autoPlay
+              loop
+              style={styles.animation}
+            />
+          </View>
+
+          <Text style={styles.title}>
+            Cadastro
+          </Text>
+
+          <View style={styles.content}>
+            {/* NOME */}
+            <View style={styles.inputContainer}>
+              <Text style={styles.inputLabel}>Nome</Text>
+              <Input place="John"
+                value={name}
+                onChangeText={setName}
+              />
             </View>
-            <View style={styles.animationContainer}>
-              <LottieView
-                source={require('../../assets/animations/Form.json')}
-                autoPlay
-                loop
-                style={styles.animation}
+            {/* EMAIL */}
+            <View style={styles.inputContainer}>
+              <Text style={styles.inputLabel}>Email</Text>
+              <Input place="seu@email.com"
+                value={email}
+                onChangeText={setEmail}
               />
             </View>
 
-            <Text style={styles.title}>
-              Cadastro
-            </Text>
-
-            <View style={styles.content}>
-              {/* NOME */}
-              <View style={styles.inputContainer}>
-                <Text style={styles.inputLabel}>Nome</Text>
-                <Input place="John"
-                  value={name}
-                  onChangeText={setName}
-                />
-              </View>
-              {/* EMAIL */}
-              <View style={styles.inputContainer}>
-                <Text style={styles.inputLabel}>Email</Text>
-                <Input place="seu@email.com"
-                  value={email}
-                  onChangeText={setEmail}
-                />
-              </View>
-
-              {/* TELEFONE */}
-              <View style={styles.inputContainer}>
-                <Text style={styles.inputLabel}>Telefone</Text>
-                <MaskInput
-                  value={phone}
-                  onChangeText={setPhone}
-                  mask={['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
-                  keyboardType="numeric"
-                  placeholder="(00) 00000-0000"
-                  style={styles.input}
-                />
-              </View>
-              <Pressable
-                style={styles.inputContainer}
-                onPress={() => setIsConfirmed(!isConfirmed)}
-              >
-                <View className="p-4 px-6 bg-bg-Therthiary rounded-2xl gap-1">
-                  <View className="flex flex-row gap-2 items-center">
-                    {isConfirmed ?
-                      <CircleCheck color={colors.White} size={RFValue(20)} />
-                      :
-                      <CircleDashed color={colors.White} size={RFValue(20)} />}
-                    <Text style={{ fontSize: RFValue(14) }} className="text-white font-bold">Termos</Text>
-                  </View>
-                  <Text style={{ fontSize: RFValue(12) }} className="text-white">
-                    Ao preencher com seus dados, você autoriza o uso das informações fornecidas
-                    para que possamos entrar em contato e melhorar nossos serviços,
-                    sempre respeitando a sua privacidade.
-                  </Text>
+            {/* TELEFONE */}
+            <View style={styles.inputContainer}>
+              <Text style={styles.inputLabel}>Telefone</Text>
+              <MaskInput
+                value={phone}
+                onChangeText={setPhone}
+                mask={['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+                keyboardType="numeric"
+                placeholder="(00) 00000-0000"
+                style={styles.input}
+              />
+            </View>
+            <Pressable
+              style={styles.inputContainer}
+              onPress={() => setIsConfirmed(!isConfirmed)}
+            >
+              <View className="p-4 px-6 bg-bg-Therthiary rounded-2xl gap-1">
+                <View className="flex flex-row gap-2 items-center">
+                  {isConfirmed ?
+                    <CircleCheck color={colors.White} size={RFValue(20)} />
+                    :
+                    <CircleDashed color={colors.White} size={RFValue(20)} />}
+                  <Text style={{ fontSize: RFValue(14) }} className="text-white font-bold">Termos</Text>
                 </View>
-              </Pressable>
-            </View>
-            {/* BOTÃO */}
-            <View style={styles.Footer}>
-              <Button title="Começar"
-                onPress={onSubmit}
-                disable={!isConfirmed}
-              />
+                <Text style={{ fontSize: RFValue(12) }} className="text-white">
+                  Ao preencher com seus dados, você autoriza o uso das informações fornecidas
+                  para que possamos entrar em contato e melhorar nossos serviços,
+                  sempre respeitando a sua privacidade.
+                </Text>
+              </View>
+            </Pressable>
+          </View>
+          {/* BOTÃO */}
+          <View style={styles.Footer}>
+            <Button title="Começar"
+              onPress={onSubmit}
+              disable={!isConfirmed}
+            />
 
-            </View>
-          </ScrollView>
-        </TouchableWithoutFeedback>
-      </View>
-    </ImageBackground>
+          </View>
+        </ScrollView>
+      </TouchableWithoutFeedback>
+    </View>
   )
 }

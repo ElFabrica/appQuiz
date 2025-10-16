@@ -4,8 +4,8 @@ import { UserStorge } from '@/storge/Users'
 import { useEffect, useState } from 'react'
 import { Modal, Text, View } from 'react-native'
 import LottieView from "lottie-react-native"
-import { style } from 'twrnc'
 import { styles } from './styles'
+import { RFValue } from 'react-native-responsive-fontsize'
 
 export function SorteioForm() {
 
@@ -25,9 +25,7 @@ export function SorteioForm() {
                 console.log(error)
             }
             console.log(leads)
-
         }
-
         handleFetchUsers()
     }, [])
 
@@ -38,26 +36,18 @@ export function SorteioForm() {
 
     async function handleSorter() {
         setTimer(3);
-
         if (!leads?.length) return;
-
         const sorted = Math.floor(Math.random() * leads.length);
-
         const intervalo = setInterval(() => {
             setTimer(prev => (Number(prev) - 1));
         }, 1000);
-
         await sleep(3000);
         clearInterval(intervalo);
-
         setLeadSorted(leads[sorted]);
         setModalVisible(true);
         setShowConfetti(true);
         setTimer(undefined);
-
-
         await sleep(2000);
-
         setShowConfetti(false);
     }
 
@@ -68,13 +58,9 @@ export function SorteioForm() {
             </View>
             <View>
                 {
-
-                    timer == undefined ? <Button title='Sortear' onPress={handleSorter} /> : <Text className='text-4xl'>{timer}</Text>
+                    timer == undefined ? <Button title='Sortear' onPress={handleSorter} /> : <Text className='text-4xl font-bold'>{timer}</Text>
                 }
             </View>
-
-
-
             <Modal
                 animationType="slide"
                 transparent
@@ -84,13 +70,13 @@ export function SorteioForm() {
 
             >
                 <View className='bg-gray-500/30 flex-1 w-full items-center justify-center'>
-                    <View className='w-[80%] items-center justify-between bg-gray-500 p-12 rounded-lg' >
+                    <View className='w-[80%] items-center justify-between bg-bg-Secondary p-12 rounded-3xl' >
                         <View>
                             <Text className='text-3xl font-medium text-gray-100 text-center'>O sorteado foi </Text>
                             <Text className=' text-4xl font-bold text-center mt-5 text-white'>{leadSorted ? leadSorted?.name : "Nada aqui"} </Text>
+                            <Text className=' text-2xl font-bold text-center  text-white'>{leadSorted ? leadSorted?.phone : "Nada aqui"} </Text>
                         </View>
-
-                        <Button title="Fechar" onPress={() => setModalVisible(false)} />
+                        <Button title="Fechar" onPress={() => setModalVisible(false)} style={{ marginTop: RFValue(20) }} />
 
                     </View>
                 </View>
@@ -105,5 +91,4 @@ export function SorteioForm() {
             </Modal >
         </View >
     )
-
 }

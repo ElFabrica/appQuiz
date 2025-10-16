@@ -54,6 +54,7 @@ export const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: RFValue(16),
     textAlign: 'center',
+    fontWeight: "500",
     marginBottom: 4,
   },
   buttonContainer: {

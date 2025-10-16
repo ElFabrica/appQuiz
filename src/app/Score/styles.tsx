@@ -29,16 +29,15 @@ export const styles = StyleSheet.create({
   },
   congrats: {
     color: colors["text-Primary"], // text-blue-500
-    fontWeight: '500',
-    fontSize: RFValue(40), // text-5xl ~40px
-    marginBottom: 12,
+    fontWeight: '600',
+    fontSize: RFValue(42), // text-5xl ~40px
     textAlign: 'center',
+    marginBottom: RFValue(10)
   },
   score: {
-    color: colors["text-Secondary"],
+    color: colors["text-Primary"],
     fontWeight: '500',
     fontSize: RFValue(24), // text-3xl
-    marginBottom: 20,
     textAlign: 'center',
   },
   backButton: {

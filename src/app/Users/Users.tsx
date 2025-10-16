@@ -67,6 +67,7 @@ export function Users() {
   async function handleUsers() {
     try {
       const response = await UserStorge.get()
+      console.log(response)
       setUserStorge(response)
     } catch (error) {
       console.log(error)

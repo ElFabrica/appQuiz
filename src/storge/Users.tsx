@@ -1,7 +1,7 @@
 import { IUserStorage } from "@/shared/interfaces/User-Storage";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const ITEMS_STORGE_KEY = "@appQuiz:Users"
+export const ITEMS_STORGE_KEY = "@appQuiz:Users"
 
 
 //Faz uma busca de todos os itens dessa tabela

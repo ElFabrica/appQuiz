@@ -3,5 +3,6 @@ export interface IUserStorage {
     name: string
     phone: string
     email: string
-    game?: string
+    game?: string,
+    sorteio?: boolean
 }

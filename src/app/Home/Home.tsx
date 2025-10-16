@@ -15,8 +15,11 @@ export function Home({ navigation }: StackRoutesProps<"home">) {
   const [tasksModalVisible, setTasksModalVisible] = useState(false);
   const [chave, setChave] = useState('');
   const [tasksPassword, setTasksPassword] = useState('');
+  const [sorteioModalVisible, setSorteioModalVisible] = useState(false);
+  const [sorteioPassowd, setSorteioPassowd] = useState('');
 
   const ACESSO_KEY = "Fala1234@";
+  const ACESSO_SORTEIO = "safadao18@";
   const TASKS_KEY = "Tasks1234@";
 
   // Função de verificar senha para acesso restrito (Users)
@@ -45,182 +48,221 @@ export function Home({ navigation }: StackRoutesProps<"home">) {
     setTasksPassword("");
   }
 
+  function handleAcessoSorteio() {
+    if (sorteioPassowd !== ACESSO_SORTEIO) {
+      Alert.alert("Código inválido");
+      setSorteioPassowd("");
+      return;
+    }
+    setSorteioModalVisible(false);
+    navigation.navigate("sorteio");
+    setSorteioPassowd("");
+  }
+
   return (
-    <ImageBackground source={require("../../assets/Background_with-logo.png")}
-      resizeMode="cover"
-      style={{ flex: 1 }}
-    >
-      <View style={styles.container}>
-        {/* Ícone de configurações */}
-        <View style={styles.header}>
-
-          <Pressable onPress={() => setOptionsModalVisible(true)}>
-            <Icon name="gear" size={24} color="purple" />
-          </Pressable>
-          <Logo />
-        </View>
-
-        {/* Conteúdo principal */}
-        <View style={styles.main}>
-          <LottieView
-            source={require('../../assets/animations/Estudant.json')}
-            autoPlay
-            loop
-            style={styles.animation}
-          />
-          <Text style={styles.title}>
-            Bem-vindo ao{"\n"}Quiz
-          </Text>
-          <Text style={styles.subTitle}>
-            Está pronto para o desafio ?
-          </Text>
 
 
-          <View className="w-full px-6 mt-6">
+    <View style={styles.container}>
+      {/* Ícone de configurações */}
+      <View style={styles.header}>
 
-            <View className="w-full" >
-              <Button
-                size={22}
-                title="Iniciar"
-                onPress={() => navigation.navigate("form")}
-              />
-            </View>
-          </View>
-        </View>
-
-        {/* Modal com opções */}
-        <Modal
-          animationType="fade"
-          transparent
-          visible={optionsModalVisible}
-          onRequestClose={() => setOptionsModalVisible(false)}
-        >
-          <View style={styles.modalOverlay}>
-            <View style={styles.modalContent}>
-              <Text style={styles.modalTitle}>Configurações</Text>
-
-              <Pressable
-                style={tw`bg-purple-500 p-4 rounded-md`}
-                onPress={() => {
-                  setAcessoModalVisible(true);
-                  setOptionsModalVisible(false);
-                }}
-              >
-                <Text style={tw`text-white font-bold text-center`}>
-                  Acesso Restrito
-                </Text>
-              </Pressable>
-
-              <Pressable
-                style={tw`bg-green-600 p-4 rounded-md`}
-                onPress={() => {
-                  setTasksModalVisible(true);
-                  setOptionsModalVisible(false);
-                }}
-              >
-                <Text style={tw`text-white font-bold text-center`}>
-                  Tasks
-                </Text>
-              </Pressable>
-              <Pressable
-                style={tw`bg-purple-600 p-4 rounded-md`}
-                onPress={() => {
-                  navigation.navigate("sorteio")
-                  setTasksModalVisible(true);
-                  setOptionsModalVisible(false);
-                }}
-              >
-                <Text style={tw`text-white font-bold text-center`}>
-                  Prêmios
-                </Text>
-              </Pressable>
-
-              <Pressable
-                style={tw`mt-4`}
-                onPress={() => setOptionsModalVisible(false)}
-              >
-                <Text style={tw`text-red-500 text-center font-bold`}>Fechar</Text>
-              </Pressable>
-            </View>
-          </View>
-        </Modal>
-
-        {/* Modal Acesso Restrito */}
-        <Modal
-          animationType="slide"
-          transparent
-          visible={acessoModalVisible}
-          onRequestClose={() => setAcessoModalVisible(false)}
-        >
-          <View style={styles.modalOverlay}>
-            <View style={styles.modalContent}>
-              <Text style={styles.modalTitle}>Acesso Restrito</Text>
-
-              <TextInput
-                placeholder="Digite a chave"
-                placeholderTextColor="#888"
-                style={styles.input}
-                secureTextEntry
-                value={chave}
-                onChangeText={setChave}
-              />
-
-              <View style={styles.modalButtons}>
-                <Pressable
-                  style={styles.cancelButton}
-                  onPress={() => [setAcessoModalVisible(false), setChave("")]}
-                >
-                  <Text style={styles.modalButtonText}>Cancelar</Text>
-                </Pressable>
-                <Pressable
-                  style={styles.confirmButton}
-                  onPress={acessoRestrito}
-                >
-                  <Text style={styles.modalButtonText}>Confirmar</Text>
-                </Pressable>
-              </View>
-            </View>
-          </View>
-        </Modal>
-
-        {/* Modal Tasks/Admin */}
-        <Modal
-          animationType="slide"
-          transparent
-          visible={tasksModalVisible}
-          onRequestClose={() => setTasksModalVisible(false)}
-        >
-          <View style={styles.modalOverlay}>
-            <View style={styles.modalContent}>
-              <Text style={styles.modalTitle}>Acesso Tasks</Text>
-
-              <TextInput
-                placeholder="Digite a chave"
-                placeholderTextColor="#888"
-                style={styles.input}
-                secureTextEntry
-                value={tasksPassword}
-                onChangeText={setTasksPassword}
-              />
-
-              <View style={styles.modalButtons}>
-                <Pressable
-                  style={styles.cancelButton}
-                  onPress={() => [setTasksModalVisible(false), setTasksPassword("")]}
-                >
-                  <Text style={styles.modalButtonText}>Cancelar</Text>
-                </Pressable>
-                <Pressable
-                  style={styles.confirmButton}
-                  onPress={acessoTasks}
-                >
-                  <Text style={styles.modalButtonText}>Confirmar</Text>
-                </Pressable>
-              </View>
-            </View>
-          </View>
-        </Modal>
+        <Pressable onPress={() => setOptionsModalVisible(true)}>
+          <Icon name="gear" size={24} color="purple" />
+        </Pressable>
+        <Logo />
       </View>
-    </ImageBackground >
+
+      {/* Conteúdo principal */}
+      <View style={styles.main}>
+        <LottieView
+          source={require('../../assets/animations/Estudant.json')}
+          autoPlay
+          loop
+          style={styles.animation}
+        />
+        <Text style={styles.title}>
+          Bem-vindo ao{"\n"}Quiz Interativo
+        </Text>
+        <Text style={styles.subTitle}>Está pronto para o desafio?</Text>
+        <View className="w-full px-6 mt-6">
+          <View className="w-full" >
+            <Button
+              size={22}
+              title="Iniciar"
+              onPress={() => navigation.navigate("form")}
+            />
+          </View>
+        </View>
+      </View>
+
+      {/* Modal com opções */}
+      <Modal
+        animationType="fade"
+        transparent
+        visible={optionsModalVisible}
+        onRequestClose={() => setOptionsModalVisible(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Configurações</Text>
+
+            <Pressable
+              style={tw`bg-purple-500 p-4 rounded-md`}
+              onPress={() => {
+                setAcessoModalVisible(true);
+                setOptionsModalVisible(false);
+              }}
+            >
+              <Text style={tw`text-white font-bold text-center`}>
+                Acesso Restrito
+              </Text>
+            </Pressable>
+
+            <Pressable
+              style={tw`bg-green-600 p-4 rounded-md`}
+              onPress={() => {
+                setTasksModalVisible(true);
+                setOptionsModalVisible(false);
+              }}
+            >
+              <Text style={tw`text-white font-bold text-center`}>
+                Tasks
+              </Text>
+            </Pressable>
+            <Pressable
+              style={tw`bg-purple-600 p-4 rounded-md`}
+              onPress={() => {
+                setSorteioModalVisible(true);
+                setOptionsModalVisible(false);
+              }}
+            >
+              <Text style={tw`text-white font-bold text-center`}>
+                Sorteio
+              </Text>
+            </Pressable>
+
+            <Pressable
+              style={tw`mt-4`}
+              onPress={() => setOptionsModalVisible(false)}
+            >
+              <Text style={tw`text-red-500 text-center font-bold`}>Fechar</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
+
+      {/* Modal Acesso Restrito */}
+      <Modal
+        animationType="slide"
+        transparent
+        visible={acessoModalVisible}
+        onRequestClose={() => setAcessoModalVisible(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Acesso Restrito</Text>
+
+            <TextInput
+              placeholder="Digite a chave"
+              placeholderTextColor="#888"
+              style={styles.input}
+              secureTextEntry
+              value={chave}
+              onChangeText={setChave}
+            />
+
+            <View style={styles.modalButtons}>
+              <Pressable
+                style={styles.cancelButton}
+                onPress={() => [setAcessoModalVisible(false), setChave("")]}
+              >
+                <Text style={styles.modalButtonText}>Cancelar</Text>
+              </Pressable>
+              <Pressable
+                style={styles.confirmButton}
+                onPress={acessoRestrito}
+              >
+                <Text style={styles.modalButtonText}>Confirmar</Text>
+              </Pressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+      {/* Modal Tasks/Admin */}
+      <Modal
+        animationType="slide"
+        transparent
+        visible={tasksModalVisible}
+        onRequestClose={() => setTasksModalVisible(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Acesso Tasks</Text>
+
+            <TextInput
+              placeholder="Digite a chave"
+              placeholderTextColor="#888"
+              style={styles.input}
+              secureTextEntry
+              value={tasksPassword}
+              onChangeText={setTasksPassword}
+            />
+
+            <View style={styles.modalButtons}>
+              <Pressable
+                style={styles.cancelButton}
+                onPress={() => [setTasksModalVisible(false), setTasksPassword("")]}
+              >
+                <Text style={styles.modalButtonText}>Cancelar</Text>
+              </Pressable>
+              <Pressable
+                style={styles.confirmButton}
+                onPress={acessoTasks}
+              >
+                <Text style={styles.modalButtonText}>Confirmar</Text>
+              </Pressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
+      {/* Modal Sorteio */}
+      <Modal
+        animationType="slide"
+        transparent
+        visible={sorteioModalVisible}
+        onRequestClose={() => setSorteioModalVisible(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Acesso ao sorteio</Text>
+
+            <TextInput
+              placeholder="Digite a chave"
+              placeholderTextColor="#888"
+              style={styles.input}
+              secureTextEntry
+              value={sorteioPassowd}
+              onChangeText={setSorteioPassowd}
+            />
+
+            <View style={styles.modalButtons}>
+              <Pressable
+                style={styles.cancelButton}
+                onPress={() => [setTasksModalVisible(false), setTasksPassword("")]}
+              >
+                <Text style={styles.modalButtonText}>Cancelar</Text>
+              </Pressable>
+              <Pressable
+                style={styles.confirmButton}
+                onPress={handleAcessoSorteio}
+              >
+                <Text style={styles.modalButtonText}>Confirmar</Text>
+              </Pressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
+    </View>
   );
 }

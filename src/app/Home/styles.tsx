@@ -16,15 +16,15 @@ export const styles = StyleSheet.create({
   },
   title: {
     color: colors["text-Primary"], // text-blue-500
-    fontWeight: '500',
+    fontWeight: '600',
     fontSize: RFValue(40), // text-5xl ~40px    
     textAlign: 'center',
   },
   subTitle: {
-    color: colors["text-Secondary"],
+    color: colors.gray[700],
     opacity: 60,
     fontWeight: '500',
-    fontSize: RFValue(25), // text-5xl ~40px    
+    fontSize: RFValue(23), // text-5xl ~40px    
     textAlign: 'center',
   },
   animation: {
