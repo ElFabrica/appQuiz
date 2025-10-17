@@ -20,16 +20,17 @@ export function Score({ navigation }: StackRoutesProps<"score">) {
   const { params } = useRoute<RouteParams["route"]>()
   const timeoutRef = useRef(0); //Desativado
   const isFocused = useIsFocused(); // 🔥 Verifica se está na tela Score
-  const [messageRefer, SetMessageRefer] = useState("")
+  const [userValid, setUserValid] = useState(false)
 
   useEffect(() => {
-    if (params.score <= 99) SetMessageRefer("Que pena \n Não foi dessa vez!")
+    if (params.score <= 99) return
     if (params.score === 100) {
       (async () => {
         if (!user) return
         await handleUpdateUser(user)
         console.log(user)
       })()
+      setUserValid(true)
     }
 
 
@@ -64,10 +65,12 @@ export function Score({ navigation }: StackRoutesProps<"score">) {
           style={styles.animation}
         />
         <Text style={styles.congrats}>
-          Parabéns!!!
+          {
+            userValid ? "Parabens!!" : "Que pena"
+          }
         </Text>
         {
-          <Text style={styles.score}>{messageRefer}</Text>
+          <Text style={styles.score}>{userValid ? "Você é fã raiz" : "Boa sorte na próxima"}</Text>
         }
         <Text style={styles.score}>
           Você conseguiu{"\n"}{params?.score} pontos
