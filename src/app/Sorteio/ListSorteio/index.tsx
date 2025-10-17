@@ -2,7 +2,7 @@ import { Button } from '@/components/button'
 import { IUserStorage } from '@/shared/interfaces/User-Storage'
 import { UserStorge } from '@/storge/Users'
 import { useEffect, useState } from 'react'
-import { Modal, Text, View } from 'react-native'
+import { Alert, Modal, Text, View } from 'react-native'
 import LottieView from "lottie-react-native"
 import { styles } from './styles'
 import { RFValue } from 'react-native-responsive-fontsize'
@@ -24,7 +24,6 @@ export function SorteioForm() {
             } catch (error) {
                 console.log(error)
             }
-            console.log(leads)
         }
         handleFetchUsers()
     }, [])
@@ -35,15 +34,19 @@ export function SorteioForm() {
     }
 
     async function handleSorter() {
+        const leadsSorted = leads.filter((item) => item.sorteio === true)
         setTimer(3);
-        if (!leads?.length) return;
-        const sorted = Math.floor(Math.random() * leads.length);
+        if (!leadsSorted?.length) {
+            Alert.alert("Antenção", "Nenhum usuário para sortear")
+            return
+        };
+        const sorted = Math.floor(Math.random() * leadsSorted.length);
         const intervalo = setInterval(() => {
             setTimer(prev => (Number(prev) - 1));
         }, 1000);
         await sleep(3000);
         clearInterval(intervalo);
-        setLeadSorted(leads[sorted]);
+        setLeadSorted(leadsSorted[sorted]);
         setModalVisible(true);
         setShowConfetti(true);
         setTimer(undefined);

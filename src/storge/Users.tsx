@@ -8,9 +8,7 @@ export const ITEMS_STORGE_KEY = "@appQuiz:Users"
 async function get(): Promise<IUserStorage[]> {
     try {
         const storge = await AsyncStorage.getItem(ITEMS_STORGE_KEY)
-
         return storge ? JSON.parse(storge) : []
-
     } catch (error) {
         throw new Error("ITEMS_GET: " + error)
     }
@@ -46,6 +44,11 @@ async function clear(): Promise<void> {
     } catch (error) {
         throw new Error("ITEMS_CLEAR: " + error)
     }
+}
+
+async function edit() {
+    const storage = get()
+    edit
 }
 //Altera o status do item 
 

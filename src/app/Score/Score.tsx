@@ -17,23 +17,19 @@ type RouteParams = StackRoutesProps<"score">
 export function Score({ navigation }: StackRoutesProps<"score">) {
 
   const { handleUpdateUser, user } = useQuizContext()
-
   const { params } = useRoute<RouteParams["route"]>()
-
   const timeoutRef = useRef(0); //Desativado
   const isFocused = useIsFocused(); // 🔥 Verifica se está na tela Score
   const [messageRefer, SetMessageRefer] = useState("")
 
   useEffect(() => {
-
     if (params.score <= 99) SetMessageRefer("Que pena \n Não foi dessa vez!")
-    if (params.score == 100) {
-      async () => {
-        if (!user) { return }
+    if (params.score === 100) {
+      (async () => {
+        if (!user) return
         await handleUpdateUser(user)
-      }
-      console.log(user)
-      SetMessageRefer(`Você é fã raiz!`)
+        console.log(user)
+      })()
     }
 
 

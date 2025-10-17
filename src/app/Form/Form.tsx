@@ -57,7 +57,6 @@ export function Form({ navigation }: StackRoutesProps<"form">) {
         sorteio: false
       }
       await UserStorge.add(newItem)
-      console.log(newItem)
       handleSelectUser(newItem)
       // Limpeza do formulário
       setName("");

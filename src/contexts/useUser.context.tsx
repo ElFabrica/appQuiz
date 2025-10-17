@@ -17,6 +17,7 @@ export const QuizContextProvider: FC<PropsWithChildren> = ({ children }) => {
         setUser(user)
     }
     async function handleUpdateUser(user: IUserStorage) {
+        console.log("chegou")
         const storage = await AsyncStorage.getItem(ITEMS_STORGE_KEY);
         const items: IUserStorage[] = storage ? JSON.parse(storage) : [];
 
@@ -28,8 +29,6 @@ export const QuizContextProvider: FC<PropsWithChildren> = ({ children }) => {
 
         const updatedUser = { ...user, sorteio: true };
         setUser(updatedUser);
-
-        console.log(updatedItems);
     }
 
 

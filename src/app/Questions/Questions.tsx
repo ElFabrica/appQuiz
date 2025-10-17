@@ -65,7 +65,7 @@ export function Questions({ navigation }: StackRoutesProps<"questions">) {
 
   // embaralha opções apenas quando muda a pergunta
   useEffect(() => {
-    if (tasks.length === 0 || choices.length === 0) return;
+    if (tasks.length === 0 || choices.length === 0) return
     const currentTask = tasks[currentQuestionIndex];
     const optionsForCurrent = choices.filter((item) => item.task === currentTask.id);
     setCurrentOptions(shuffleArray(optionsForCurrent));
