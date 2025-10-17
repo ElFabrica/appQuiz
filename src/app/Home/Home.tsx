@@ -64,7 +64,7 @@ export function Home({ navigation }: StackRoutesProps<"home">) {
 
     <View style={styles.container}>
       <ImageBackground className="flex-1" source={require("@/assets/bg-app.png")} >
-        <Pressable onPress={() => navigation.navigate("form")}>
+        <Pressable onPress={() => navigation.navigate("form")} className="flex-1">
           {/* Ícone de configurações */}
           <View style={styles.header}>
 
@@ -75,27 +75,7 @@ export function Home({ navigation }: StackRoutesProps<"home">) {
           </View>
 
           {/* Conteúdo principal */}
-          <View style={styles.main}>
-            <LottieView
-              source={require('../../assets/animations/Estudant.json')}
-              autoPlay
-              loop
-              style={styles.animation}
-            />
-            <Text style={styles.title}>
-              Bem-vindo ao{"\n"}Quiz Interativo
-            </Text>
-            <Text style={styles.subTitle}>Está pronto para o desafio?</Text>
-            <View className="w-full px-6 mt-6">
-              <View className="w-full" >
-                <Button
-                  size={22}
-                  title="Iniciar"
-                  onPress={() => navigation.navigate("form")}
-                />
-              </View>
-            </View>
-          </View>
+          {/*Sem conteúdo*/}
 
           {/* Modal com opções */}
           <Modal

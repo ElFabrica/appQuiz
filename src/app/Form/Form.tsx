@@ -43,10 +43,10 @@ export function Form({ navigation }: StackRoutesProps<"form">) {
       return;
     }
     //Valida se o email é um email válido (Não verifica se o email existe)
-    if (!validator.validate(email)) {
+    /*if (!validator.validate(email)) {
       Alert.alert("Erro", "E-mail inválido");
       return;
-    }
+    }*/
     //Caso funcione tudo redondo
     try {
       const newItem = {

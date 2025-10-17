@@ -50,10 +50,7 @@ export function HomeCarrocel({ navigation }: StackRoutesProps<"homeCarrocel">) {
     setTasksPassword("");
   }
   const data = [
-    { id: "1", image: require("@/assets/Background_with-logo.png") },
-    { id: "2", image: require("@/assets/Background_without-logo.png") },
-    { id: "3", image: require("@/assets/LOGO_ACT.png") },
-    { id: "4", image: require("@/assets/logo_nasa_letras_pretas.png") },
+    { id: "1", image: require("@/assets/bg-app.png") },
 
 
   ]

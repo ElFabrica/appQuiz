@@ -69,12 +69,12 @@ export function Score({ navigation }: StackRoutesProps<"score">) {
             userValid ? "Parabens!!" : "Que pena"
           }
         </Text>
-        {
-          <Text style={styles.score}>{userValid ? "Você é fã raiz" : "Boa sorte na próxima"}</Text>
-        }
         <Text style={styles.score}>
           Você conseguiu{"\n"}{params?.score} pontos
         </Text>
+        {
+          <Text style={styles.score}>{userValid ? "Você é fã raiz" : "Boa sorte na próxima"}</Text>
+        }
         <Button title='Voltar'
           onPress={voltar}
           style={{ marginTop: 30 }}
